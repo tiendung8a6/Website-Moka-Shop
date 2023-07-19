@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+:root {
+  --up: 3;
+  --card-margin: 12px;
+  --card-shadow: rgba(46, 49, 52, .4);
+  --color-white: #fff;
+  --color-lightgrey: #ccc;
+  --color-ui: #999;
+  --color-ui-hover: #666;
+  --cardWidth: calc(96vw/var(--up));
+  --carouselWidth: calc(var(--cardWidth) * var(--num));
+  --carouselLeftMargin: calc(2vw - var(--cardWidth));
+}
+
+@media screen and (max-width: 900px) {
+  /*basically mobile*/
+  :root {
+    --up: 1;
+  }
+}
+
+.carouselwrapper {
+  overflow: hidden;
+  /* background: var(--color-lightgrey); */
+  position: relative;
+}
+
+.CarouselCardCustomer {
+  width: var(--carouselWidth);
+  margin: 0 0 0 var(--carouselLeftMargin);
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.CarouselCardCustomer.prev {
+  animation-duration: .6s;
+  animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+  animation-name: prev;
+}
+
+.CarouselCardCustomer.next {
+  animation-duration: .6s;
+  animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+  animation-name: next;
+}
+
+.CarouselCardCustomer li {
+  padding: 50px;
+  text-align: center;
+  width: calc(var(--cardWidth) - var(--card-margin) * 2);
+  box-sizing: border-box;
+}
+
+.ui {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  width: calc(100% - var(--card-margin) * 2);
+  justify-content: space-between;
+  padding: var(--card-margin);
+  z-index: 10;
+}
+
+.ui button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ui);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--color-white);
+  box-shadow: 0px 2px 5px 1px rgba(0,0,0,.25);
+  border: 0;
+  transition: all .2s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+.ui button:hover {
+  background: var(--color-ui-hover);
+}
+
+.ui button:focus {
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.card-ccc {
+  /* box-shadow: 0px 1px 2px 0px var(--card-shadow); */
+  border-radius: 4px;
+  margin: var(--card-margin);
+  background: var(--color-white);
+}
+
+.card-ccc .material-icons {
+  font-size: 4.8rem;
+}
+
+.card-ccc p {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+@keyframes next {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(calc(0px + var(--cardWidth)));
+  }
+}
+
+@keyframes prev {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(calc(0px - var(--cardWidth)));
+  }
+}

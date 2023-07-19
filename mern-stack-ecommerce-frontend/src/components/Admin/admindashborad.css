@@ -1,0 +1,33 @@
+.active-style{
+    /* background-color: red; */
+    color: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 0.375rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+
+}
+.notactive{
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 0.375rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #BEE3F8;
+}
+.notactive:hover{
+    background: #430101;
+}

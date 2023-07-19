@@ -1,0 +1,45 @@
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.nav-categories-dropdown{
+ /* position: absolute; */
+    
+    
+
+}
+
+
+.categories-navbar-list{
+    padding-left: 10%;
+}
+.dd-container-navbar{
+    width: 1000px;
+}
+.icon-css-navbar {
+  display: flex;
+  align-items: center;
+  transition: transform 0.5s linear;
+}
+
+.dd-item-navbar{
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+.dd-item-navbar:hover{
+    background: rgb(207, 205, 202);
+    border-radius: 20px;
+    
+}
+.dd-item-navbar img{
+    width: 65px;
+    height: 65px;
+    padding-right: 10px;
+}
+

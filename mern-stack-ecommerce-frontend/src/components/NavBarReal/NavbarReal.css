@@ -1,0 +1,14 @@
+@keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  .coupon-row {
+    animation: slide 100s linear infinite;
+  }
+  .coupon-row:hover {
+        animation-play-state: paused;
+  }
