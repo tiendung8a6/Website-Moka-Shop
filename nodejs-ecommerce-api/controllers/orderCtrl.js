@@ -49,7 +49,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
     orderItems,
     shippingAddress,
     // totalPrice: couponFound ? totalPrice - totalPrice * discount : totalPrice,
-    // totalPrice,
+    totalPrice,
   });
 
   //Update the product qty
@@ -61,9 +61,8 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
     });
     if (product) {
       product.totalSold += order.qty;
-      await product.save();
     }
-    // await product.save();
+    await product.save();
   });
   //push order into user
   user.orders.push(order?._id);
@@ -79,7 +78,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
           name: item?.name,
           description: item?.description,
         },
-        unit_amount: item?.price ,
+        unit_amount: item?.price,
       },
       quantity: item?.qty,
     };
@@ -95,17 +94,6 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
   });
   res.send({ url: session.url });
 });
-
-
-
-
-
-
-
-
-
-
-
 
 //@desc get all orders
 //@route GET /api/v1/orders
@@ -214,7 +202,6 @@ export const getOrderStatsCtrl = asyncHandler(async (req, res) => {
     saleToday,
   });
 });
-
 
 // @desc    delete order
 // @route   DELETE /api/orders/:id

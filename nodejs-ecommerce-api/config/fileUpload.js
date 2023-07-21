@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   allowedFormats: ["jpg", "png"],
   params: {
-    folder: "blog-api",
+    folder: "image-api",
   },
 });
 
