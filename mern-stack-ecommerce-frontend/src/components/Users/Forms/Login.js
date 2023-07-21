@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUserAction } from "../../../redux/slices/users/usersSlice";
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
+import { NavLink, Link, Outlet } from "react-router-dom";
 
+// config interface
 import './FormLogin.css'
 // import ImgFomSignin from "./ImgForm/FormSignin.svg"
 import ImgFomSignin from "./ImgForm/Beige Simple Fashion Poster.png"
 import ModelJiooDior from "./ImgForm/JisooDiorRB.png";
 import ButtonLogin0ut from "./ButtonLogin-out/ButtonLogin0ut";
+import ForgotPass from "./ForgotPass/ForgotPass";
 
 const Login = () => {
   //dispatch
@@ -43,8 +46,8 @@ const Login = () => {
   }, [userInfo]);
   return (
     <>
-      <section className="relative overflow-x-hidden h-[800px] bg-form-login  ">
-        <div className="container px-4 mx-auto w-[50%] bg-[#fff] h-[68%] mt-[100px] rounded-3xl shadow-xl shadow-blue-500/50" >
+      <section className="relative overflow-x-hidden h-[745px] bg-form-login  ">
+        <div className="container px-4 mx-auto w-[50%] bg-[#fff] h-[75%] mt-[100px] rounded-3xl shadow-xl shadow-blue-500/50" >
           <div className="flex flex-wrap items-center">
             <div className="w-full lg:w-3/6 px-4 mb-12 lg:mb-0">
               <div className="py-20 text-center">
@@ -87,18 +90,21 @@ const Login = () => {
                   ) : (
                     <button className=" mt-4  text-white font-bold font-heading rounded-md uppercase">
 
-                      <ButtonLogin0ut>Register</ButtonLogin0ut>
+                      <ButtonLogin0ut>Login</ButtonLogin0ut>
                     </button>
                   )}
 
                 </form>
                 <div className="flex justify-around mt-10">
                   <div>
-                    Forgot Password
+                    <ForgotPass></ForgotPass>
                   </div>
 
-                  <div>
-                    Don't Have Accout
+                  <div className="cursor-pointer text-md hover:scale-110 hover:underline hover:underline-offset-8">
+                    <Link to='/register'> 
+                     Don't Have Accout
+                     </Link>
+
                   </div>
                 </div>
 

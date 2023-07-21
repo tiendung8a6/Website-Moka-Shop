@@ -185,7 +185,7 @@ function NavListMenu() {
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
               <Square3Stack3DIcon className="h-[18px] w-[18px]" />
-              Resources
+              Categories
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""
@@ -199,8 +199,8 @@ function NavListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
-          <ul className="grid grid-cols-4 gap-y-2">{renderItems}</ul>
+        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block hover:outline-none">
+          <ul className="grid grid-cols-4 gap-y-2 hover:outline-none">{renderItems}</ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">

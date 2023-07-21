@@ -151,6 +151,24 @@ export const logoutAction = createAsyncThunk(
   }
 );
 
+
+// forgot password action 
+
+export const forgotPasswordAction = createAsyncThunk(
+  "users/forgotPassword",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      // Make the HTTP request to the "forgot password" endpoint
+      await axios.post(`${baseURL}/users/forgotpassword`, { email });
+      return "success"; // Indicate success without any additional data
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+
 //users slice
 
 const usersSlice = createSlice({
@@ -222,6 +240,20 @@ const usersSlice = createSlice({
     //reset error action
     builder.addCase(resetErrAction.pending, (state) => {
       state.error = null;
+    });
+
+    // Forgot Password
+    builder.addCase(forgotPasswordAction.pending, (state, action) => {
+      state.loading = true; // Indicate that the password reset process is ongoing
+    });
+    builder.addCase(forgotPasswordAction.fulfilled, (state, action) => {
+      state.loading = false; // Reset loading state
+      // Optionally, you can display a success message to the user in your UI
+    });
+    builder.addCase(forgotPasswordAction.rejected, (state, action) => {
+      state.loading = false; // Reset loading state
+      state.error = action.payload; // Store the error message returned from the API
+      // Optionally, you can display an error message to the user in your UI
     });
   },
 });

@@ -42,8 +42,8 @@ const RegisterForm = () => {
   }, [user]);
   return (
     <>
-      <section className="relative overflow-x-hidden h-[1000px] form_logio ">
-        <div className="container px-4 mx-auto w-[50%] bg-[#ffff] h-[55%] mt-[100px] rounded-3xl shadow-xl shadow-blue-500/50" >
+      <section className="relative overflow-x-hidden h-[745px] form_logio ">
+        <div className="container px-4 mx-auto w-[50%] bg-[#ffff] h-[71%] mt-[100px] rounded-3xl shadow-xl shadow-blue-500/50" >
           <div className="flex flex-wrap items-center">
             <div className="w-full lg:w-3/6 px-4 mb-12 lg:mb-0">
               <div className="py-20 text-center">

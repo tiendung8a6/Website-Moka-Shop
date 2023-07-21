@@ -4,6 +4,8 @@ import emailjs from '@emailjs/browser';
 // import './avartar.png'
 import avartar from "./avartar.png";
 import FormRight from "./formAvartarRight.png";
+import Bgnice from "./bg-nice1.jpg";
+
 
 
 
@@ -101,7 +103,7 @@ const Form = () => {
 
   return (
     <div className="form-emailjs-container">
-      <form className="form-container" ref={form}>
+      <form className="form-container bg-cyan-500 shadow-xl shadow-black" ref={form}>
         <img src={avartar} alt="" className="img-form-contact" />
         <div className="headline mt-5">
           <span>Contact me</span>
@@ -138,7 +140,7 @@ const Form = () => {
         <input type="submit" className="form-button" value="Submit" onClick={sendEmail} />
       </form>
 
-      <img src={FormRight} alt="" className="img-right_form"/>
+      {/* <img src={FormRight} alt="" className="img-right_form"/> */}
     </div>
   );
 };
