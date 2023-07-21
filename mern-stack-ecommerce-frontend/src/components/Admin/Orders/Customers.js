@@ -16,9 +16,11 @@ export default function Customers() {
   const { error, loading, orders } = useSelector((state) => state?.orders);
   const customers = orders?.orders;
 
-  // remove duplicates
+  // remove duplicates based on fullname (assuming fullname is unique for each customer)
   const uniqueCustomers = customers?.reduce((acc, customer) => {
-    const existingCustomer = acc.find((item) => item?.user?.fullname === customer?.user?.fullname);
+    const existingCustomer = acc.find(
+      (item) => item?.user?.fullname === customer?.user?.fullname
+    );
     if (!existingCustomer) {
       acc.push(customer);
     }
@@ -49,15 +51,33 @@ export default function Customers() {
                 </th>
                 <th
                   scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
                   Email
                 </th>
                 <th
                   scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
-                  Country
+                  Number of Orders
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  First Name
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Last Name
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Address
                 </th>
                 <th
                   scope="col"
@@ -71,16 +91,12 @@ export default function Customers() {
                 >
                   Phone
                 </th>
-
                 <th
                   scope="col"
                   className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
                   Postal Code
                 </th>
-                {/* <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                  <span className="sr-only">Edit</span>
-                </th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
@@ -89,11 +105,20 @@ export default function Customers() {
                   <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
                     {customer?.user?.fullname}
                   </td>
-                  <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
+                  <td className="px-3 py-4 text-sm text-gray-500">
                     {customer?.user?.email}
                   </td>
-                  <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                    {customer?.user?.shippingAddress?.country}
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.orders?.length}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.user?.shippingAddress?.firstName}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.user?.shippingAddress?.lastName}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer?.user?.shippingAddress?.address}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
                     {customer?.user?.shippingAddress?.city}

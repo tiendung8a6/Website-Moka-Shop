@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProductAction ,fetchProductsAction } from "../../../redux/slices/products/productSlices";
+import { deleteProductAction, fetchProductsAction } from "../../../redux/slices/products/productSlices";
 import baseURL from "../../../utils/baseURL";
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
@@ -10,7 +10,6 @@ import ButtonShort from "../Categories/ButtonShort/ButtonShort";
 
 
 export default function ManageStocks() {
-  let index = 0;
   //delete product handler
   const deleteProductHandler = (id) => {
     // Thực hiện xóa sản phẩm với id đã truyền vào
@@ -34,20 +33,29 @@ export default function ManageStocks() {
     loading,
     error,
   } = useSelector((state) => state?.products);
-  
+
   // Pagination states
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(products?.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products?.slice(indexOfFirstItem, indexOfLastItem);
-  const startIndex = (currentPage - 1) * itemsPerPage + 1;
+  const itemsPerPageOptions = [5, 10, 15, 20];
+  const [selectedItemsPerPage, setSelectedItemsPerPage] = useState(10);
+
+  const filteredProducts = products?.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const totalPages = Math.ceil(filteredProducts?.length / selectedItemsPerPage);
+  const startIndex = (currentPage - 1) * selectedItemsPerPage;
+  const endIndex = Math.min(startIndex + selectedItemsPerPage, filteredProducts?.length);
+  const currentItems = filteredProducts?.slice(startIndex, endIndex);
+
+
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset current page when searching
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
 
 
   return (
@@ -55,33 +63,45 @@ export default function ManageStocks() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">
-              List of products
+            List of products
           </h1>
-            <div className="flex items-center mt-2 text-sm text-gray-700">
+          <div className="flex items-center mt-2 text-sm text-gray-700">
             <svg fill="#000000" width="23px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-            <g id="SVGRepo_iconCarrier"> <g data-name="24 wishlist" id="_24_wishlist"> <path d="M27.11,17.74a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,17.74Z"/> <path d="M39.79,16.65,35.71,20a1.025,1.025,0,0,1-.64.23.948.948,0,0,1-.65-.25l-2.78-2.42a1,1,0,0,1-.1-1.41,1.011,1.011,0,0,1,1.42-.1l2.13,1.87,3.44-2.82a.989.989,0,0,1,1.4.14A1,1,0,0,1,39.79,16.65Z"/> <path d="M27.11,27.06a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,27.06Z"/> <path d="M39.79,25.97l-4.08,3.35a.97.97,0,0,1-.64.23.948.948,0,0,1-.65-.25l-2.78-2.42a1,1,0,0,1-.1-1.41,1.011,1.011,0,0,1,1.42-.1l2.13,1.87,3.44-2.82a.989.989,0,0,1,1.4.14A1,1,0,0,1,39.79,25.97Z"/> <path d="M27.11,36.38a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,36.38Z"/> <path d="M39.79,35.29l-4.08,3.36a1.015,1.015,0,0,1-.64.22.987.987,0,0,1-.65-.24L31.64,36.2a1,1,0,0,1-.1-1.41,1.01,1.01,0,0,1,1.42-.09l2.13,1.86,3.44-2.82a1,1,0,0,1,1.26,1.55Z"/> <path d="M27.11,45.7a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,45.7Z"/> <path d="M45.75,38.46V9.93A3.718,3.718,0,0,0,41.96,6.3H35.5V5.5a2.006,2.006,0,0,0-2-2H22.45a2.006,2.006,0,0,0-2,2v.8H13.99a3.727,3.727,0,0,0-3.8,3.63V52.2a3.728,3.728,0,0,0,3.8,3.64H33.45a11.248,11.248,0,1,0,12.3-17.38ZM22.45,5.5H33.5V9.09H22.45ZM13.99,53.84a1.752,1.752,0,0,1-1.8-1.64V9.93a1.751,1.751,0,0,1,1.8-1.63h6.46v.79a2,2,0,0,0,2,2H33.5a2,2,0,0,0,2-2V8.3h6.46a1.741,1.741,0,0,1,1.79,1.63V38.06a11.726,11.726,0,0,0-1.2-.07A11.238,11.238,0,0,0,32.29,53.84ZM42.55,58.5a9.255,9.255,0,1,1,9.26-9.25A9.261,9.261,0,0,1,42.55,58.5Z"/> <path d="M49.52,46.61c-.01-.11-.03-.21-.05-.32a3.519,3.519,0,0,0-3.48-2.94h-.02a5,5,0,0,0-3.42,1.46,4.963,4.963,0,0,0-3.42-1.46h-.01a3.326,3.326,0,0,0-.96.15.749.749,0,0,0-.16.04,3.5,3.5,0,0,0-2.01,1.73c-.01.03-.02.05-.03.08a3.682,3.682,0,0,0-.33.95c-.02.1-.03.2-.05.31-.65,4.9,4.37,8.58,5.89,9.57l.51.35a.931.931,0,0,0,.57.19.959.959,0,0,0,.58-.19l.47-.33C45.15,55.19,50.17,51.51,49.52,46.61ZM42.55,54.5c-2.67-1.76-5.38-4.67-4.98-7.63l.03-.21a1.526,1.526,0,0,1,1.52-1.31,3.026,3.026,0,0,1,2.54,1.58,1.039,1.039,0,0,0,1.78,0,3.039,3.039,0,0,1,2.54-1.58,1.518,1.518,0,0,1,1.52,1.3l.04.22C47.93,49.82,45.25,52.72,42.55,54.5Z"/> </g> </g>
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+              <g id="SVGRepo_iconCarrier"> <g data-name="24 wishlist" id="_24_wishlist"> <path d="M27.11,17.74a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,17.74Z" /> <path d="M39.79,16.65,35.71,20a1.025,1.025,0,0,1-.64.23.948.948,0,0,1-.65-.25l-2.78-2.42a1,1,0,0,1-.1-1.41,1.011,1.011,0,0,1,1.42-.1l2.13,1.87,3.44-2.82a.989.989,0,0,1,1.4.14A1,1,0,0,1,39.79,16.65Z" /> <path d="M27.11,27.06a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,27.06Z" /> <path d="M39.79,25.97l-4.08,3.35a.97.97,0,0,1-.64.23.948.948,0,0,1-.65-.25l-2.78-2.42a1,1,0,0,1-.1-1.41,1.011,1.011,0,0,1,1.42-.1l2.13,1.87,3.44-2.82a.989.989,0,0,1,1.4.14A1,1,0,0,1,39.79,25.97Z" /> <path d="M27.11,36.38a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,36.38Z" /> <path d="M39.79,35.29l-4.08,3.36a1.015,1.015,0,0,1-.64.22.987.987,0,0,1-.65-.24L31.64,36.2a1,1,0,0,1-.1-1.41,1.01,1.01,0,0,1,1.42-.09l2.13,1.86,3.44-2.82a1,1,0,0,1,1.26,1.55Z" /> <path d="M27.11,45.7a1,1,0,0,1-1,1H16.79a1,1,0,0,1,0-2h9.32A1,1,0,0,1,27.11,45.7Z" /> <path d="M45.75,38.46V9.93A3.718,3.718,0,0,0,41.96,6.3H35.5V5.5a2.006,2.006,0,0,0-2-2H22.45a2.006,2.006,0,0,0-2,2v.8H13.99a3.727,3.727,0,0,0-3.8,3.63V52.2a3.728,3.728,0,0,0,3.8,3.64H33.45a11.248,11.248,0,1,0,12.3-17.38ZM22.45,5.5H33.5V9.09H22.45ZM13.99,53.84a1.752,1.752,0,0,1-1.8-1.64V9.93a1.751,1.751,0,0,1,1.8-1.63h6.46v.79a2,2,0,0,0,2,2H33.5a2,2,0,0,0,2-2V8.3h6.46a1.741,1.741,0,0,1,1.79,1.63V38.06a11.726,11.726,0,0,0-1.2-.07A11.238,11.238,0,0,0,32.29,53.84ZM42.55,58.5a9.255,9.255,0,1,1,9.26-9.25A9.261,9.261,0,0,1,42.55,58.5Z" /> <path d="M49.52,46.61c-.01-.11-.03-.21-.05-.32a3.519,3.519,0,0,0-3.48-2.94h-.02a5,5,0,0,0-3.42,1.46,4.963,4.963,0,0,0-3.42-1.46h-.01a3.326,3.326,0,0,0-.96.15.749.749,0,0,0-.16.04,3.5,3.5,0,0,0-2.01,1.73c-.01.03-.02.05-.03.08a3.682,3.682,0,0,0-.33.95c-.02.1-.03.2-.05.31-.65,4.9,4.37,8.58,5.89,9.57l.51.35a.931.931,0,0,0,.57.19.959.959,0,0,0,.58-.19l.47-.33C45.15,55.19,50.17,51.51,49.52,46.61ZM42.55,54.5c-2.67-1.76-5.38-4.67-4.98-7.63l.03-.21a1.526,1.526,0,0,1,1.52-1.31,3.026,3.026,0,0,1,2.54,1.58,1.039,1.039,0,0,0,1.78,0,3.039,3.039,0,0,1,2.54-1.58,1.518,1.518,0,0,1,1.52,1.3l.04.22C47.93,49.82,45.25,52.72,42.55,54.5Z" /> </g> </g>
             </svg>
-              <span className="ml-">Total: </span>
-              <span className="ml-1 text-sm  font-bold text-blue-900">{ products ? products.length : 'Loading...'}</span>
-            </div>
+            <span className="ml-2">Total: </span>
+            <span className="ml-1 text-sm  font-bold text-blue-900">{products ? products.length : 'Loading...'}</span>
+          </div>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <ButtonShort>
-        <Link
-            to="/admin/add-product"
-            type="button"
-            className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-            
-            Add New Product 
-            
+          <ButtonShort>
+            <Link
+              to="/admin/add-product"
+              type="button"
+              className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+
+              Add New Product
+
             </Link>
-        </ButtonShort>
-          
+          </ButtonShort>
+
         </div>
       </div>
-
+      <div className="flex items-center mb-4">
+        <label htmlFor="search" className="mr-2 text-gray-600">
+          Search by Name:
+        </label>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search product name..."
+          className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </div>
       {loading ? (
         <LoadingComponent />
       ) : error ? (
@@ -156,10 +176,10 @@ export default function ManageStocks() {
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {/* loop here */}
-                    {products?.map((product) => (
+                    {currentItems?.map((product, index) => (
                       <tr key={product._id} className="hover:bg-gray-200 w-full">
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 w-[40px]">
-                          {++index}
+                          {startIndex + index + 1}
                         </td>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 ">
                           <div className="flex items-center">
@@ -207,8 +227,8 @@ export default function ManageStocks() {
                           {product?.qtyLeft}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          
-                      {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(product?.price)}
+
+                          {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(product?.price)}
 
                         </td>
                         {/* edit */}
@@ -264,36 +284,54 @@ export default function ManageStocks() {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-          <div className="text-gray-600 font-medium text-[16px]">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, products?.length)} of {products?.length} products
-          </div>
-          <div className="flex items-center">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white"
-            >
-              Previous
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <div className="text-gray-600 font-medium text-[16px]">
+              Showing {startIndex + 1} to {endIndex} of {filteredProducts?.length} products
+            </div>
+            <div className="flex items-center">
+              <div className="mr-4 flex items-center">
+                <label htmlFor="itemsPerPage" className="mr-2 text-gray-600">
+                  Items per page:
+                </label>
+                <select
+                  id="itemsPerPage"
+                  className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium text-center"
+                  value={selectedItemsPerPage}
+                  onChange={(e) => setSelectedItemsPerPage(Number(e.target.value))}
+                >
+                  {itemsPerPageOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <button
-                key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}
-                className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white ${currentPage === pageNumber ? "bg-blue-600 text-[#fff] hover:bg-blue-500" : "text-gray-700 hover:bg-blue-500 "
-                  }`}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white"
               >
-                {pageNumber}
+                Previous
               </button>
-            ))}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white"
-            >
-              Next
-            </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  onClick={() => handlePageChange(pageNumber)}
+                  className={`mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white ${currentPage === pageNumber ? "bg-blue-600 text-[#fff] hover:bg-blue-500" : "text-gray-700 hover:bg-blue-500 "
+                    }`}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="mx-1 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md cursor-pointer transition-colors duration-200 hover:bg-blue-500 hover:text-white"
+              >
+                Next
+              </button>
+            </div>
           </div>
-        </div>
         </div>
       )}
     </div>
