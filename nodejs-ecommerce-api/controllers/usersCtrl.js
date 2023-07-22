@@ -223,39 +223,6 @@ export const changePasswordCtrl = asyncHandler(async (req, res) => {
   });
 });
 
-// Change password
-// @desc    Change password
-// @route   POST /api/v1/users/changepassword
-// @access  Private
-export const changePasswordCtrl = asyncHandler(async (req, res) => {
-  const { currentPassword, newPassword } = req.body;
-  // Find the user in db by their ID
-  const user = await User.findById(req.userAuthId);
-  if (!user) {
-    // If user does not exist, return an error
-    throw new Error("User not found");
-  }
-  // Check if the current password matches the one stored in the database
-  const isMatch = await bcrypt.compare(currentPassword, user.password);
-  if (!isMatch) {
-    // If the current password doesn't match, return an error
-    throw new Error("Current password is incorrect");
-  }
-
-  // Hash the new password
-  const salt = await bcrypt.genSalt(10);
-  const hashedNewPassword = await bcrypt.hash(newPassword, salt);
-
-  // Update the user's password with the new hashed password
-  user.password = hashedNewPassword;
-  await user.save();
-  res.json({
-    status: "success",
-    message: "Password has been changed successfully",
-  });
-});
-
-
 // @desc    Get all users
 // @route   GET /api/v1/users
 // @access  Private/Admin
@@ -280,6 +247,7 @@ export const updateUserCtrl = asyncHandler(async (req, res) => {
   const image = req.file?.path; // The uploaded image URL from Cloudinary (if passed)
   // Find the user in db by their ID
   const user = await User.findById(req.userAuthId);
+  console.log("========", user)
   if (!user) {
     // If user does not exist, return an error
     throw new Error("User not found");

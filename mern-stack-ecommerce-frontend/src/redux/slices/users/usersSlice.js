@@ -198,6 +198,26 @@ export const changePasswordAction = createAsyncThunk(
 );
 
 
+//fetch users action
+export const fetchUsersAction = createAsyncThunk(
+  "users/list",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get(`${baseURL}/users`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 
 //users slice
 
@@ -246,6 +266,20 @@ const usersSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     });
+    //fetch all
+    builder.addCase(fetchUsersAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchUsersAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.users = action.payload;
+    });
+    builder.addCase(fetchUsersAction.rejected, (state, action) => {
+      state.loading = false;
+      state.users = null;
+      state.error = action.payload;
+    });
+
     //shipping address
     builder.addCase(
       updateUserShippingAddressAction.pending,

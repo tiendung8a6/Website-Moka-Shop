@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOrdersAction } from "../../../redux/slices/orders/ordersSlices";
+// import { fetchOrdersAction } from "../../../redux/slices/orders/ordersSlices";
+import { fetchUsersAction } from "../../../redux/slices/users/usersSlice";
+
+
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import NoDataFound from "../../NoDataFound/NoDataFound";
@@ -9,35 +12,26 @@ export default function Customers() {
   // dispatch
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchOrdersAction());
+    dispatch(fetchUsersAction());
   }, [dispatch]);
 
   // get data from store
-  const { error, loading, orders } = useSelector((state) => state?.orders);
-  const customers = orders?.orders;
+  const { error, loading, users } = useSelector((state) => state?.users);
+  const customers = users?.users;
+  console.log("============customers", customers)
 
-  // remove duplicates based on fullname (assuming fullname is unique for each customer)
-  const uniqueCustomers = customers?.reduce((acc, customer) => {
-    const existingCustomer = acc.find(
-      (item) => item?.user?.fullname === customer?.user?.fullname
-    );
-    if (!existingCustomer) {
-      acc.push(customer);
-    }
-    return acc;
-  }, []);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center"></div>
 
       <h3 className="text-lg font-medium leading-6 text-gray-900 mt-3">
-        All Customers [{uniqueCustomers?.length}]
+        All Customers [{customers?.length}]
       </h3>
       <div className="-mx-4 mt-3  overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
         {loading ? (
           <LoadingComponent />
-        ) : uniqueCustomers?.length <= 0 ? (
+        ) : customers?.length <= 0 ? (
           <NoDataFound />
         ) : (
           <table className="min-w-full divide-y divide-gray-300">
@@ -100,34 +94,34 @@ export default function Customers() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              {uniqueCustomers?.map((customer) => (
-                <tr key={customer?.user?.fullname}>
+              {customers?.map((customer) => (
+                <tr key={customer?._id}>
                   <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
-                    {customer?.user?.fullname}
+                    {customer?.fullname}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.email}
+                    {customer?.email}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
                     {customer?.orders?.length}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.shippingAddress?.firstName}
+                    {customer?.shippingAddress?.firstName}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.shippingAddress?.lastName}
+                    {customer?.shippingAddress?.lastName}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.shippingAddress?.address}
+                    {customer?.shippingAddress?.address}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.shippingAddress?.city}
+                    {customer?.shippingAddress?.city}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.shippingAddress?.phone}
+                    {customer?.shippingAddress?.phone}
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
-                    {customer?.user?.shippingAddress?.postalCode}
+                    {customer?.shippingAddress?.postalCode}
                   </td>
                 </tr>
               ))}
