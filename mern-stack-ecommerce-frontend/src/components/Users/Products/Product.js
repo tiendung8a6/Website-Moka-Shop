@@ -14,6 +14,9 @@ import {
   addOrderToCartaction,
   getCartItemsFromLocalStorageAction,
 } from "../../../redux/slices/cart/cartSlices";
+import BtnAddCart from "./ButtonProduct/BtnAddCart";
+import BtnCheckout from "./ButtonProduct/BtnCheckout";
+import AddReview from "../Reviews/AddReview";
 const product = {
   name: "Basic Tee",
   price: "$35",
@@ -191,10 +194,12 @@ export default function Product() {
     }
   };
 
+  
+
 
   return (
-    <div className="bg-white">
-      <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
+    <div className="bg-gray-300 ">
+      <main className="bg-white shadow-lg py-10 shadow-black  mx-auto   max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
           <div className="lg:col-span-5 lg:col-start-8">
             <div className="flex justify-between">
@@ -231,13 +236,13 @@ export default function Product() {
                 <div
                   aria-hidden="true"
                   className="ml-4 text-sm text-gray-300"></div>
-                <div className="ml-4 flex">
+                {/* <div className="ml-4 flex">
                   <a
                     href="#"
                     className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     {productDetails?.product?.totalReviews} total reviews
                   </a>
-                </div>
+                </div> */}
               </div>
               {/* leave a review */}
 
@@ -256,33 +261,26 @@ export default function Product() {
             {/* <h2 className="sr-only">Images</h2> */}
 
             <div className="">
-
-              {/* <Carousel className="rounded-xl h-[500px] w-[500px] ">
-                {product?.images?.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`image ${index + 1}`}
-                    className="h-full w-full object-cover"
-                  />
-                ))}
-              </Carousel> */}
-
-              <div className="container mx-auto my-10 h-4/5 w-4/5 shadow-md">
+              <div className="container mx-auto  h-4/5 w-4/5 shadow-md">
                 <div className="main h-5/6 relative">
                   <span
-                    className="control prev absolute top-1/2 transform -translate-y-1/2 text-6xl text-white cursor-pointer left-2"
+                    className="control prev absolute top-1/2 transform -translate-y-1/2 text-6xl text-black cursor-pointer left-2"
                     onClick={goToPrev}
                   >
-                    <i className="bx bx-chevron-left"></i>
+                    <span class="material-symbols-outlined">
+                      west
+                    </span>
                   </span>
                   <span
-                    className="control next absolute top-1/2 transform -translate-y-1/2 text-6xl text-white cursor-pointer right-2"
+                    className="control next absolute top-1/2 transform -translate-y-1/2 text-6xl text-black cursor-pointer right-2"
                     onClick={goToNext}
                   >
-                    <i className="bx bx-chevron-right"></i>
+
+                    <span class="material-symbols-outlined">
+                      east
+                    </span>
                   </span>
-                  <div className="img-wrap h-full">
+                  <div className="img-wrap h-[550px] object-cover ">
                     {product?.images.length > 0 && (
                       <img
                         src={product.images[currentIndex]}
@@ -292,15 +290,15 @@ export default function Product() {
                     )}
                   </div>
                 </div>
-                <div className="list-img flex">
+                <div className="list-img flex h-[270px] mt-5  overflow-x-hidden">
                   {product?.images.map((image, index) => (
                     <div
                       key={index}
-                      className={`cursor-pointer p-2 bg-gray-300 flex-1 ${currentIndex === index ? 'bg-red-500' : ''
+                      className={`  cursor-pointer p-2 bg-gray-300 flex-1 h-[270px] ${currentIndex === index ? 'bg-red-500' : ''
                         }`}
                       onClick={() => setCurrent(index)}
                     >
-                      <img src={image} alt="" />
+                      <img src={image} alt="" className="h-[250px] " />
                     </div>
                   ))}
                 </div>
@@ -374,30 +372,46 @@ export default function Product() {
                   </div>
                 </RadioGroup>
               </div>
-              {/* add to cart */}
-              {product?.qtyLeft <= 0 ? (
-                <button
-                  style={{ cursor: "not-allowed" }}
-                  disabled
-                  className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 py-3 px-8 text-base font-medium text-whitefocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  Add to cart
-                </button>
-              ) : (
-                <button
-                  onClick={() => addToCartHandler()}
-                  className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  Add to cart
-                </button>
-              )}
-              {/* proceed to check */}
 
-              {cartItems.length > 0 && (
-                <Link
-                  to="/shopping-cart"
-                  className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-green-800 py-3 px-8 text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  Proceed to checkout
-                </Link>
-              )}
+              {/* button buy */}
+              <div className="flex justify-around mt-5 items-center" >
+                {/* add to cart */}
+                {product?.qtyLeft <= 0 ? (
+                  // <button
+                  //   style={{ cursor: "not-allowed" }}
+                  //   disabled
+                  //   className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 py-3 px-8 text-base font-medium text-whitefocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+
+                  // </button>
+
+                  <BtnAddCart>
+                    Add to cart
+                  </BtnAddCart>
+                ) : (
+                  <button
+                    onClick={() => addToCartHandler()}
+                    className="mt-8 flex w-full items-center justify-center ">
+                    <BtnAddCart>
+                      Add to cart
+                    </BtnAddCart>
+                  </button>
+
+
+                )}
+                {/* proceed to check */}
+
+                {cartItems.length > 0 && (
+
+
+                  <BtnCheckout>
+                    <Link
+                      to="/shopping-cart"
+                      className="mt-8 ">
+                      Checkout
+                    </Link>
+                  </BtnCheckout>
+                )}
+              </div>
             </>
 
             {/* Product details */}
@@ -439,12 +453,31 @@ export default function Product() {
         </div>
 
         {/* Reviews */}
+        
         <section aria-labelledby="reviews-heading" className="mt-16 sm:mt-24">
           <h2
             id="reviews-heading"
-            className="text-lg font-medium text-gray-900">
-            Recent reviews
+            className="text-xl uppercase font-medium text-gray-900  ">
+            product reviews
           </h2>
+          <div>
+            <div className="ml-1 flex items-center">
+              {[0, 1, 2, 3, 4].map((rating) => (
+                <StarIcon
+                  key={rating}
+                  className={classNames(
+                    +product?.averageRating > rating
+                      ? "text-yellow-400"
+                      : "text-gray-200",
+                    "h-5 w-5 flex-shrink-0"
+                  )}
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
+          </div>
+
+
 
           <div className="mt-6 space-y-10 divide-y divide-gray-200 border-t border-b border-gray-200 pb-10">
             {product?.reviews.map((review) => (

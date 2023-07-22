@@ -19,6 +19,8 @@ import {
 import logo from "../Navbar/logo3.png";
 import Logo2 from "../Admin/imgAd/startbucks.png";
 import AdminIcon from "../Admin/imgAd/Adminicon.svg";
+import MokaLogoAd from "../Admin/imgAd/MokaLogoAD.svg";
+
 
 
 import { Typography } from "@material-tailwind/react";
@@ -430,7 +432,7 @@ export default function AddminDashboard() {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-grow flex-col overflow-y-auto  bg-cyan-900  pb-4">
             <div className="">
-              <img src={Logo2} className="w-[220px] h-[200px] mx-auto" />
+              <img src={MokaLogoAd} className="w-[220px] h-[200px] mx-auto" />
               <h2 className=" text-lg flex  justify-center text-cyan-100 font-semibold"> Admin <img className=" w-[26px] ml-1" src={AdminIcon}></img>
               </h2>
             </div>

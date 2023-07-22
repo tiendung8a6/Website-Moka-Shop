@@ -168,6 +168,36 @@ export const forgotPasswordAction = createAsyncThunk(
   }
 );
 
+// change pass action
+
+export const changePasswordAction = createAsyncThunk(
+  "users/changePassword",
+  async ({ currentPassword, newPassword }, { rejectWithValue, getState }) => {
+    try {
+      // Lấy token từ state để gửi trong header của request
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      // Gửi yêu cầu HTTP đến endpoint "/api/v1/users/changepassword"
+      await axios.post(
+        `${baseURL}/users/changepassword`,
+        { currentPassword, newPassword },
+        config
+      );
+
+      return "success"; // Trả về "success" để chỉ ra thành công mà không có dữ liệu bổ sung
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+
 
 //users slice
 
@@ -254,6 +284,22 @@ const usersSlice = createSlice({
       state.loading = false; // Reset loading state
       state.error = action.payload; // Store the error message returned from the API
       // Optionally, you can display an error message to the user in your UI
+    });
+
+    // Change Password
+    builder.addCase(changePasswordAction.pending, (state, action) => {
+      state.loading = true; // Indicate that the password change process is ongoing
+    });
+    builder.addCase(changePasswordAction.fulfilled, (state, action) => {
+      state.loading = false; // Reset loading state
+      // Optionally, you can display a success message to the user in your UI
+      console.log("Password has been changed successfully");
+    });
+    builder.addCase(changePasswordAction.rejected, (state, action) => {
+      state.loading = false; // Reset loading state
+      state.error = action.payload; // Store the error message returned from the API
+      // Optionally, you can display an error message to the user in your UI
+      console.error("Failed to change password", state.error);
     });
   },
 });

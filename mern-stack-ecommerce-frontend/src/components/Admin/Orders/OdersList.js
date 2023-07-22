@@ -232,6 +232,7 @@ export default function OrdersList() {
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500">
                       {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(order?.totalPrice)}
+                      {console.log(order?.totalPrice)}
                     </td>
                     <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       {order?.paymentStatus === "Not paid" ? (
