@@ -81,12 +81,9 @@ export default function ManageStocks() {
               to="/admin/add-product"
               type="button"
               className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-
               Add New Product
-
             </Link>
           </ButtonShort>
-
         </div>
       </div>
       <div className="flex items-center mb-4">
@@ -96,7 +93,7 @@ export default function ManageStocks() {
         <input
           type="text"
           id="search"
-          placeholder="Search product name..."
+          placeholder="Search product ..."
           className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
           value={searchTerm}
           onChange={handleSearch}
@@ -106,7 +103,7 @@ export default function ManageStocks() {
         <LoadingComponent />
       ) : error ? (
         <ErrorMsg message={error?.message} />
-      ) : products?.length <= 0 ? (
+      ) : filteredProducts?.length <= 0 ? (
         <NoDataFound />
       ) : (
         <div className="mt-8 flex flex-col">

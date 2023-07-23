@@ -57,7 +57,6 @@ const ManageCategories = () => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
-  
   const filteredCategories = categories?.filter(category =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -108,7 +107,7 @@ const ManageCategories = () => {
         <input
           type="text"
           id="search"
-          placeholder="Search category name..."
+          placeholder="Search category ..."
           className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
           value={searchTerm}
           onChange={handleSearch}
@@ -262,6 +261,7 @@ const ManageCategories = () => {
               </button>
             </div>
           </div>
+          
         </div>
       )}
     </div>

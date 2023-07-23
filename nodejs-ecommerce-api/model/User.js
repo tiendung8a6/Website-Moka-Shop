@@ -18,6 +18,7 @@ const UserShema = new Schema(
     image: {
       type: String,
       required: false,
+      default: "https://res.cloudinary.com/dz1pzeo5w/image/upload/v1690080637/image-api/gsckjyorcfgp8qenhdsu.jpg",
     },
     orders: [
       {

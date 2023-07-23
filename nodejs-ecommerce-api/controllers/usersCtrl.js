@@ -247,7 +247,6 @@ export const updateUserCtrl = asyncHandler(async (req, res) => {
   const image = req.file?.path; // The uploaded image URL from Cloudinary (if passed)
   // Find the user in db by their ID
   const user = await User.findById(req.userAuthId);
-  console.log("========", user)
   if (!user) {
     // If user does not exist, return an error
     throw new Error("User not found");

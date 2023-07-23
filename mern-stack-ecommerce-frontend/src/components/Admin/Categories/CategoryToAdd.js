@@ -26,8 +26,9 @@ export default function CategoryToAdd() {
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 justify-center ">
+
+            {/* <form className="space-y-6" action="#" method="POST">
               <div>
                 <label
                   htmlFor="email"
@@ -42,17 +43,17 @@ export default function CategoryToAdd() {
                 </div>
               </div>
               <div></div>
-            </form>
+            </form> */}
 
-            <div className="mt-6">
-              <div className="relative">
+            <div className="mt-6 ">
+              {/* <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="bg-white px-2 text-gray-500">Or</span>
                 </div>
-              </div>
+              </div> */}
 
               <div className="mt-6 grid grid-cols-3 gap-3">
                 <div>

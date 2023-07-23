@@ -76,8 +76,13 @@ export default function CategoryToAdd() {
             />
           </svg>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Add Product Category
+            Add New Category
           </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            <a href="/admin/manage-category" className="font-medium text-indigo-600 hover:text-indigo-500">
+              All categories
+            </a>
+          </p>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
@@ -101,7 +106,7 @@ export default function CategoryToAdd() {
 
               {/* upload images */}
               <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-              <label
+                <label
                   htmlFor="cover-photo"
                   className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                   Upload Images<span className="text-red-500 font-bold"> *</span>
@@ -142,7 +147,7 @@ export default function CategoryToAdd() {
                   <button
                     type="submit"
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Add Category
+                    Add New Category
                   </button>
                 )}
               </div>
