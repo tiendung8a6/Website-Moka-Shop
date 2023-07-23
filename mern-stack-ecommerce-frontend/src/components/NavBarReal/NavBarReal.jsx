@@ -40,78 +40,12 @@ import { logoutAction } from "../../redux/slices/users/usersSlice";
 import { fetchCouponsAction } from "../../redux/slices/coupons/couponsSlice";
 import './NavbarReal.css'
 import MokaLogo from './ImgLogo/MokaLogo.svg'
-const colors = {
-  blue: "bg-blue-50 text-blue-500",
-  orange: "bg-orange-50 text-orange-500",
-  green: "bg-green-50 text-green-500",
-  "blue-gray": "bg-blue-gray-50 text-blue-gray-500",
-  purple: "bg-purple-50 text-purple-500",
-  teal: "bg-teal-50 text-teal-500",
-  cyan: "bg-cyan-50 text-cyan-500",
-  pink: "bg-pink-50 text-pink-500",
-};
 
-// const navListMenuItems = [
-//   {
-//     color: "blue",
-//     icon: FlagIcon,
-//     title: "About us",
-//     description: "Learn about our story and our mission statement.",
-//   },
-//   {
-//     color: "orange",
-//     icon: ChatBubbleOvalLeftIcon,
-//     title: "Press",
-//     description: "News and writings, press releases, and resources",
-//   },
-//   {
-//     color: "green",
-//     icon: UsersIcon,
-//     title: (
-//       <div className="flex items-center gap-1">
-//         Careers{" "}
-//         <Chip
-//           size="sm"
-//           color="green"
-//           variant="ghost"
-//           value="We're hiring!"
-//           className="capitalize"
-//         />
-//       </div>
-//     ),
-//     description: "We are always looking for talented people. Join us!",
-//   },
-//   {
-//     color: "blue-gray",
-//     icon: FolderIcon,
-//     title: "Legal",
-//     description: "All the stuff that we dan from legal made us add.",
-//   },
-//   {
-//     color: "purple",
-//     icon: RocketLaunchIcon,
-//     title: "Products",
-//     description: "Checkout our products that helps a startup running.",
-//   },
-//   {
-//     color: "teal",
-//     icon: FaceSmileIcon,
-//     title: "Icons",
-//     description: "Set of beautiful icons that you can use in your project.",
-//   },
-//   {
-//     color: "cyan",
-//     icon: PuzzlePieceIcon,
-//     title: "UI Kits",
-//     description: "High quality UI Kits helps you to 2x faster.",
-//   },
-//   {
-//     color: "pink",
-//     icon: GiftIcon,
-//     title: "Open Source",
-//     description: "List of all our open-source projects, it's all free.",
-//   },
-// ];
+
+
+import { getUserProfileAction } from "../../redux/slices/users/usersSlice";
+
+
 
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -124,31 +58,6 @@ function NavListMenu() {
   //get data from store
   const { categories } = useSelector((state) => state?.categories);
   const categoriesToDisplay = categories?.categories?.slice(0, 12);
-
-
-
-
-
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const handleTogglePopover = () => {
-  //   setIsOpen(!isOpen);
-  // };
-  // const buttonRef = useRef(null);
-
-  // useEffect(() => {
-  //   function handleClickOutside(event) {
-  //     if (buttonRef.current && !buttonRef.current.contains(event.target)) {
-  //       setIsOpen(false);
-  //     }
-  //   }
-
-  //   document.addEventListener('click', handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, []);
 
   const renderItems = categoriesToDisplay?.map(
     (category) => {
@@ -348,6 +257,15 @@ export default function NavbarReal() {
       });
   }
 
+
+  // get user 
+
+ useEffect(() => {
+    dispatch(getUserProfileAction());
+  }, [dispatch]);
+  const { profile } = useSelector((state) => state?.users);
+  
+
   return (
     <>
     {coupons?.coupons && (
@@ -409,10 +327,9 @@ export default function NavbarReal() {
                         to="/customer-profile"
                         className="-m-2 p-2 mr-2 text-gray-400 hover:text-gray-500"
                       >
-                        <UserIcon
-                          className="h-6 w-6"
-                          aria-hidden="true"
-                        />
+                        
+
+                        <img src={profile?.user?.image} className="w-[30px] h-[30px] object-cover rounded-full "></img>
                       </Link>
                       {/* logout */}
                       <button onClick={logoutHandler}>

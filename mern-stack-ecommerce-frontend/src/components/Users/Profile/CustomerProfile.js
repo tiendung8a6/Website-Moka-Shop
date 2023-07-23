@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserProfileAction } from "../../../redux/slices/users/usersSlice";
 import CustomerDetails from "./CustomerDetails";
 import ShippingAddressDetails from "./ShippingAddressDetails";
+// import UpdateProfile from "./UpdateProfile";
 
 //import custom interface 
 import {
@@ -19,6 +20,7 @@ import {
 } from "@heroicons/react/24/solid";
 import ChangePassword from "./ChangPass";
 import NoDataFound from "../../NoDataFound/NoDataFound";
+import UpdateProfile from "./UpdateProfile";
 
 export default function CustomerProfile() {
   //dispatch
@@ -173,8 +175,10 @@ export default function CustomerProfile() {
       label: "Profile",
       value: "profile",
       icon: UserCircleIcon,
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
+      desc: (<>
+      <UpdateProfile ></UpdateProfile>
+      </>),
+
     },
     {
       label: "Chang Password",
@@ -182,6 +186,7 @@ export default function CustomerProfile() {
       icon: Cog6ToothIcon,
       desc: (
         <ChangePassword></ChangePassword>
+        // <> aaaaaaaa</>
       ),
     },
   ];
@@ -194,12 +199,15 @@ export default function CustomerProfile() {
             email={profile?.user?.email}
             dateJoined={new Date(profile?.user?.createdAt).toDateString()}
             fullName={profile?.user?.fullname}
+            image ={profile?.user?.image}
           />
+
+
         </div>
         <div className="w-full md:w-1/3 px-3 mb-3 md:mb-0" />
       </div>
 
-      <Tabs value="dashboard">
+      <Tabs value="dashboard" className='mt-10'>
         <TabsHeader>
           {data.map(({ label, value, icon }) => (
             <Tab key={value} value={value}>
