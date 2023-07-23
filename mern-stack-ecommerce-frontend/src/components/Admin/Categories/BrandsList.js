@@ -114,7 +114,7 @@ export default function BrandsList() {
         <input
           type="text"
           id="search"
-          placeholder="Search brand name..."
+          placeholder="Search brand ..."
           className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
           value={searchTerm}
           onChange={handleSearch}
