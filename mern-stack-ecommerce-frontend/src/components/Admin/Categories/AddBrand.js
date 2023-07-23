@@ -48,10 +48,14 @@ export default function AddBrand() {
               d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
             />
           </svg>
-
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Add Product Brand
+            Add New Brand
           </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            <a href="/admin/all-brands" className="font-medium text-indigo-600 hover:text-indigo-500">
+              All Brands
+            </a>
+          </p>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
@@ -79,7 +83,7 @@ export default function AddBrand() {
                   <button
                     type="submit"
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Add Product Brand
+                    Add New Brand
                   </button>
                 )}
               </div>

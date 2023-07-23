@@ -106,7 +106,7 @@ export default function ManageStocks() {
         <LoadingComponent />
       ) : error ? (
         <ErrorMsg message={error?.message} />
-      ) : products?.length <= 0 ? (
+      ) : filteredProducts?.length <= 0 ? (
         <NoDataFound />
       ) : (
         <div className="mt-8 flex flex-col">

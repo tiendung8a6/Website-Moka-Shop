@@ -57,7 +57,6 @@ const ManageCategories = () => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
-  
   const filteredCategories = categories?.filter(category =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -262,6 +261,7 @@ const ManageCategories = () => {
               </button>
             </div>
           </div>
+          
         </div>
       )}
     </div>
