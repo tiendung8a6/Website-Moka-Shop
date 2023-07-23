@@ -84,7 +84,7 @@ export default function ColorsList() {
                 </g>
               </g>
             </svg>
-            <span className="ml-1">Total: </span>
+            <span className="ml-2">Total: </span>
             <span className="ml-1 text-sm  font-bold text-blue-900">
               {colors ? colors.length : 'Loading...'}
             </span>
@@ -109,6 +109,7 @@ export default function ColorsList() {
         <input
           type="text"
           id="search"
+          placeholder="Search color ..."
           className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
           value={searchTerm}
           onChange={handleSearch}

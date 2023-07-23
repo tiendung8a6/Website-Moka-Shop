@@ -15,6 +15,11 @@ const UserShema = new Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: false,
+      default: "https://res.cloudinary.com/dz1pzeo5w/image/upload/v1690080637/image-api/gsckjyorcfgp8qenhdsu.jpg",
+    },
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,

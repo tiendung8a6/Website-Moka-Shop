@@ -32,7 +32,6 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 
   //Get the payload(customer, orderItems, shipppingAddress, totalPrice);
   const { orderItems, shippingAddress, totalPrice } = req.body;
-  console.log(req.body);
   //Find the user
   const user = await User.findById(req.userAuthId);
   //Check if user has shipping address
@@ -49,7 +48,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
     orderItems,
     shippingAddress,
     // totalPrice: couponFound ? totalPrice - totalPrice * discount : totalPrice,
-    // totalPrice,
+    totalPrice,
   });
 
   //Update the product qty
@@ -61,9 +60,8 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
     });
     if (product) {
       product.totalSold += order.qty;
-      await product.save();
     }
-    // await product.save();
+    await product.save();
   });
   //push order into user
   user.orders.push(order?._id);
@@ -79,7 +77,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
           name: item?.name,
           description: item?.description,
         },
-        unit_amount: item?.price ,
+        unit_amount: item?.price,
       },
       quantity: item?.qty,
     };
@@ -95,17 +93,6 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
   });
   res.send({ url: session.url });
 });
-
-
-
-
-
-
-
-
-
-
-
 
 //@desc get all orders
 //@route GET /api/v1/orders
@@ -215,13 +202,11 @@ export const getOrderStatsCtrl = asyncHandler(async (req, res) => {
   });
 });
 
-
 // @desc    delete order
 // @route   DELETE /api/orders/:id
 // @access  Private/Admin
 export const deleteOrderCtrl = asyncHandler(async (req, res) => {
   await Order.findByIdAndDelete(req.params.id);
-  console.log("==============",req.params.id )
   res.json({
     status: "success",
     message: "order deleted successfully",

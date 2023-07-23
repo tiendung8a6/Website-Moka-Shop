@@ -110,12 +110,12 @@ export const updateShippingAddresctrl = asyncHandler(async (req, res) => {
 });
 
 
-//tiendung8a6@gmail.com
-//matkhaumoka
-//engmadev2021@gmail.com----edtdtqelvvmbione
-//Forgot password================================================================================================================
-import nodemailer from "nodemailer";
 
+//Forgot password=============================================================================
+// @desc    Forgot password
+// @route   POST /api/v1/users/forgotpassword
+// @access  Public
+import nodemailer from "nodemailer";
 // Hàm gửi email
 const sendEmail = async (to, subject, text) => {
   try {
@@ -143,9 +143,6 @@ const sendEmail = async (to, subject, text) => {
   }
 };
 
-// @desc    Forgot password
-// @route   POST /api/v1/users/forgotpassword
-// @access  Public
 export const forgotPasswordCtrl = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -169,9 +166,13 @@ export const forgotPasswordCtrl = asyncHandler(async (req, res) => {
   await user.save();
 
   // Gửi mật khẩu mới qua email
-  const subject = "Cấp lại mật khẩu mới";
-  const text = `Mật khẩu mới của bạn là: ${newPassword}`;
-
+  const subject = "Reset Your Password";
+  const text = `Hello,
+We have reset your password. Here is your new password:
+Your new password is:  ${newPassword}
+Please ensure to keep your password secure to prevent unauthorized access to your account.
+Best regards,
+Admin`;
 
   try {
     await sendEmail(email, subject, text);
@@ -185,8 +186,114 @@ export const forgotPasswordCtrl = asyncHandler(async (req, res) => {
   });
 });
 
+// Change password
+// @desc    Change password
+// @route   POST /api/v1/users/changepassword
+// @access  Private
+export const changePasswordCtrl = asyncHandler(async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  // Find the user in db by their ID
+  const user = await User.findById(req.userAuthId);
+
+  if (!user) {
+    // If user does not exist, return an error
+    throw new Error("User not found");
+  }
+
+  // Check if the current password matches the one stored in the database
+  const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+  if (!isMatch) {
+    // If the current password doesn't match, return an error
+    throw new Error("Current password is incorrect");
+  }
+
+  // Hash the new password
+  const salt = await bcrypt.genSalt(10);
+  const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+
+  // Update the user's password with the new hashed password
+  user.password = hashedNewPassword;
+  await user.save();
+
+  res.json({
+    status: "success",
+    message: "Password has been changed successfully",
+  });
+});
+
+// @desc    Get all users
+// @route   GET /api/v1/users
+// @access  Private/Admin
+
+export const getAllUsersCtrl = asyncHandler(async (req, res) => {
+  // Find all users in the database
+  const users = await User.find({});
+
+  res.json({
+    status: "success",
+    message: "All users fetched successfully",
+    users,
+  });
+});
+
+// @desc    Update user's fullname, email, or image
+// @route   PUT /api/v1/users/update
+// @access  Private
+export const updateUserCtrl = asyncHandler(async (req, res) => {
+  const { fullname, email } = req.body;
+  // Optionally, you can also get the image URL from the request body if you're passing it as a parameter to update the image along with other fields.
+  const image = req.file?.path; // The uploaded image URL from Cloudinary (if passed)
+  // Find the user in db by their ID
+  const user = await User.findById(req.userAuthId);
+  if (!user) {
+    // If user does not exist, return an error
+    throw new Error("User not found");
+  }
+  // Check if the new email is already in use by another user
+  if (email && email !== user.email) {
+    const emailInUse = await User.findOne({ email });
+    if (emailInUse) {
+      throw new Error("Email is already in use");
+    }
+  }
+  // Update the user's fullname, email, and/or image
+  if (fullname) {
+    user.fullname = fullname;
+  }
+  if (email) {
+    user.email = email;
+  }
+  if (image) {
+    user.image = image;
+  }
+  // Save the updated user information
+  await user.save();
+  res.json({
+    status: "success",
+    message: "User information updated successfully",
+    user,
+  });
+});
 
 
 
-
-
+// @desc    Upload image
+// @route   POST /api/v1/image
+// @access  Private
+export const uploadImageCtrl = async (req, res) => {
+  const image = req.file?.path; // The uploaded image URL from Cloudinary
+  const user = await User.findById(req.userAuthId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found." });
+  }
+  // Update the user's image field in the database
+  user.image = image;
+  await user.save();
+  res.json({
+    status: "success",
+    message: "Image uploaded successfully.",
+    imageUrl: image,
+  });
+};

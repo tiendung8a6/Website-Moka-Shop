@@ -6,7 +6,6 @@ import Coupon from "../model/Coupon.js";
 
 export const createCouponCtrl = asyncHandler(async (req, res) => {
   const { code, startDate, endDate, discount } = req.body;
-  console.log(req.body);
   //check if admin
   //check if coupon already exists
   const couponsExists = await Coupon.findOne({

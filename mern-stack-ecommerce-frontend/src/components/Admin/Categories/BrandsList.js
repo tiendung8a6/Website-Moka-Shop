@@ -61,17 +61,18 @@ export default function BrandsList() {
   const itemsPerPageOptions = [5, 10, 15, 20];
   const [selectedItemsPerPage, setSelectedItemsPerPage] = useState(10);
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset current page when searching
-  };
-
   const filteredBrands = brands?.filter(brand => brand.name.toLowerCase().includes(searchTerm.toLowerCase()));
   const totalPages = Math.ceil(filteredBrands?.length / selectedItemsPerPage);
   const startIndex = (currentPage - 1) * selectedItemsPerPage;
   const endIndex = Math.min(startIndex + selectedItemsPerPage, filteredBrands?.length);
   const currentItems = filteredBrands?.slice(startIndex, endIndex);
 
+  console.log("===========filteredBrands", filteredBrands)
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset current page when searching
+  };
 
 
   const handlePageChange = (pageNumber) => {
@@ -113,6 +114,7 @@ export default function BrandsList() {
         <input
           type="text"
           id="search"
+          placeholder="Search brand ..."
           className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
           value={searchTerm}
           onChange={handleSearch}

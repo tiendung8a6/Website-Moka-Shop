@@ -151,6 +151,74 @@ export const logoutAction = createAsyncThunk(
   }
 );
 
+
+// forgot password action 
+
+export const forgotPasswordAction = createAsyncThunk(
+  "users/forgotPassword",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      // Make the HTTP request to the "forgot password" endpoint
+      await axios.post(`${baseURL}/users/forgotpassword`, { email });
+      return "success"; // Indicate success without any additional data
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+// change pass action
+
+export const changePasswordAction = createAsyncThunk(
+  "users/changePassword",
+  async ({ currentPassword, newPassword }, { rejectWithValue, getState }) => {
+    try {
+      // Lấy token từ state để gửi trong header của request
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      // Gửi yêu cầu HTTP đến endpoint "/api/v1/users/changepassword"
+      await axios.post(
+        `${baseURL}/users/changepassword`,
+        { currentPassword, newPassword },
+        config
+      );
+
+      return "success"; // Trả về "success" để chỉ ra thành công mà không có dữ liệu bổ sung
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+
+//fetch users action
+export const fetchUsersAction = createAsyncThunk(
+  "users/list",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get(`${baseURL}/users`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+
 //users slice
 
 const usersSlice = createSlice({
@@ -198,6 +266,20 @@ const usersSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     });
+    //fetch all
+    builder.addCase(fetchUsersAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchUsersAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.users = action.payload;
+    });
+    builder.addCase(fetchUsersAction.rejected, (state, action) => {
+      state.loading = false;
+      state.users = null;
+      state.error = action.payload;
+    });
+
     //shipping address
     builder.addCase(
       updateUserShippingAddressAction.pending,
@@ -222,6 +304,36 @@ const usersSlice = createSlice({
     //reset error action
     builder.addCase(resetErrAction.pending, (state) => {
       state.error = null;
+    });
+
+    // Forgot Password
+    builder.addCase(forgotPasswordAction.pending, (state, action) => {
+      state.loading = true; // Indicate that the password reset process is ongoing
+    });
+    builder.addCase(forgotPasswordAction.fulfilled, (state, action) => {
+      state.loading = false; // Reset loading state
+      // Optionally, you can display a success message to the user in your UI
+    });
+    builder.addCase(forgotPasswordAction.rejected, (state, action) => {
+      state.loading = false; // Reset loading state
+      state.error = action.payload; // Store the error message returned from the API
+      // Optionally, you can display an error message to the user in your UI
+    });
+
+    // Change Password
+    builder.addCase(changePasswordAction.pending, (state, action) => {
+      state.loading = true; // Indicate that the password change process is ongoing
+    });
+    builder.addCase(changePasswordAction.fulfilled, (state, action) => {
+      state.loading = false; // Reset loading state
+      // Optionally, you can display a success message to the user in your UI
+      console.log("Password has been changed successfully");
+    });
+    builder.addCase(changePasswordAction.rejected, (state, action) => {
+      state.loading = false; // Reset loading state
+      state.error = action.payload; // Store the error message returned from the API
+      // Optionally, you can display an error message to the user in your UI
+      console.error("Failed to change password", state.error);
     });
   },
 });

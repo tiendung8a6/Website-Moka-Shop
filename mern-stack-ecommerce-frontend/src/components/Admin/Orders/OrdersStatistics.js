@@ -36,7 +36,6 @@ export default function OrdersStats() {
               </p>
               <p className="text-2xl font-semibold text-gray-200">
               {stats?.saleToday?.length <= 0 ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(0) : new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(0)}
-
               </p>
             </div>
             <div className=" rounded-md bg-indigo-400 p-3">

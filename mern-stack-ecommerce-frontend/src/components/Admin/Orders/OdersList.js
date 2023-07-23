@@ -60,29 +60,59 @@ export default function OrdersList() {
   };
 
   // Pagination states
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(orders?.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = orders?.slice(indexOfFirstItem, indexOfLastItem);
-  const startIndex = (currentPage - 1) * itemsPerPage + 1;
+  const itemsPerPageOptions = [5, 10, 15, 20];
+  const [selectedItemsPerPage, setSelectedItemsPerPage] = useState(10);
+  const filteredOrders = orders?.filter((order) =>
+    order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase()) // Filter by orderNumber
+  );
+
+
+  const totalPages = Math.ceil(filteredOrders?.length / selectedItemsPerPage);
+  const startIndex = (currentPage - 1) * selectedItemsPerPage;
+  const endIndex = Math.min(startIndex + selectedItemsPerPage, filteredOrders?.length);
+  const currentItems = filteredOrders?.slice(startIndex, endIndex);
+  console.log("===========", filteredOrders)
+
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset current page when searching
+  };
+
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   return (
     <>
       {error && <ErrorMsg message={error?.message} />}
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center"></div>
-        {/* order stats */}
         <OrdersStats />
-
-        <h2 className="text-xl font-medium leading-6 text-gray-900 mt-3">
+        <h1 className="text-xl font-semibold text-gray-900">
           Recent Orders
-        </h2>
+        </h1>
+        <div className="flex items-center mt-2 text-sm text-gray-700">
+          <svg fill="#000000" width="30px" height="30px" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M15.48 12c-.13.004-.255.058-.347.152l-2.638 2.63-1.625-1.62c-.455-.474-1.19.258-.715.712l1.983 1.978c.197.197.517.197.715 0l2.995-2.987c.33-.32.087-.865-.367-.865zM.5 16h3c.277 0 .5.223.5.5s-.223.5-.5.5h-3c-.277 0-.5-.223-.5-.5s.223-.5.5-.5zm0-4h3c.277 0 .5.223.5.5s-.223.5-.5.5h-3c-.277 0-.5-.223-.5-.5s.223-.5.5-.5zm0-4h3c.277 0 .5.223.5.5s-.223.5-.5.5h-3C.223 9 0 8.777 0 8.5S.223 8 .5 8zm24 11c-1.375 0-2.5 1.125-2.5 2.5s1.125 2.5 2.5 2.5 2.5-1.125 2.5-2.5-1.125-2.5-2.5-2.5zm0 1c.834 0 1.5.666 1.5 1.5s-.666 1.5-1.5 1.5-1.5-.666-1.5-1.5.666-1.5 1.5-1.5zm-13-1C10.125 19 9 20.125 9 21.5s1.125 2.5 2.5 2.5 2.5-1.125 2.5-2.5-1.125-2.5-2.5-2.5zm0 1c.834 0 1.5.666 1.5 1.5s-.666 1.5-1.5 1.5-1.5-.666-1.5-1.5.666-1.5 1.5-1.5zm-5-14C5.678 6 5 6.678 5 7.5v11c0 .822.678 1.5 1.5 1.5h2c.676.01.676-1.01 0-1h-2c-.286 0-.5-.214-.5-.5v-11c0-.286.214-.5.5-.5h13c.286 0 .5.214.5.5V19h-5.5c-.66 0-.648 1.01 0 1h7c.66 0 .654-1 0-1H21v-9h4.227L29 15.896V18.5c0 .286-.214.5-.5.5h-1c-.654 0-.654 1 0 1h1c.822 0 1.5-.678 1.5-1.5v-2.75c0-.095-.027-.19-.078-.27l-4-6.25c-.092-.143-.25-.23-.422-.23H21V7.5c0-.822-.678-1.5-1.5-1.5z"></path></g>
+          </svg>
+          <span className="ml-2">Total: </span>
+          <span className="ml-1 text-sm  font-bold text-blue-900">{orders ? orders.length : 'Loading...'}</span>
+        </div>
+        <div className="flex items-center mb-4">
+          <label htmlFor="search" className="mr-2 text-gray-600">
+            Search by Order ID:
+          </label>
+          <input
+            type="text"
+            id="search"
+            placeholder="Search recent orders ..."
+            className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
         <div className="-mx-4 mt-3  overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-50">
@@ -146,14 +176,16 @@ export default function OrdersList() {
             </thead>
             {loading ? (
               <LoadingComponent />
-            ) : currentItems?.length <= 0 ? (
+            ) : error ? (
+              <ErrorMsg message={error?.message} />
+            ) : filteredOrders?.length <= 0 ? (
               <NoDataFound />
             ) : (
               <tbody className="divide-y divide-gray-200 bg-white ">
                 {currentItems?.map((order, index) => (
                   <tr key={order._id} className="hover:bg-gray-200">
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 w-[60px]">
-                      {startIndex + index}
+                      {startIndex + index + 1}
                     </td>
                     <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
                       {order.orderNumber}
@@ -200,6 +232,7 @@ export default function OrdersList() {
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500">
                       {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(order?.totalPrice)}
+                      {console.log(order?.totalPrice)}
                     </td>
                     <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       {order?.paymentStatus === "Not paid" ? (
@@ -271,9 +304,26 @@ export default function OrdersList() {
         </div>
         <div className="mt-4 flex items-center justify-between">
           <div className="text-gray-600 font-medium text-[16px]">
-            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, orders?.length)} of {orders?.length} orders
+            Showing {startIndex + 1} to {endIndex} of {filteredOrders?.length} orders
           </div>
           <div className="flex items-center">
+            <div className="mr-4 flex items-center">
+              <label htmlFor="itemsPerPage" className="mr-2 text-gray-600">
+                Items per page:
+              </label>
+              <select
+                id="itemsPerPage"
+                className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none text-sm font-medium text-center"
+                value={selectedItemsPerPage}
+                onChange={(e) => setSelectedItemsPerPage(Number(e.target.value))}
+              >
+                {itemsPerPageOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}

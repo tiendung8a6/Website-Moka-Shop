@@ -23,7 +23,7 @@ const Products = ({ products }) => {
                     // },
                   }}>
                   <img
-                    className="w-full h-64 object-cover"
+                    className="w-full h-full object-cover"
                     src={product?.images[0]}
                     alt
                   />

@@ -21,8 +21,8 @@ export default function ManageCoupons() {
 
   const { coupons, loading, error } = useSelector((state) => state?.coupons);
   const [currentPage, setCurrentPage] = useState(0);
-  const [perPage, setPerPage] = useState(10); // Add state for perPage
-  // const perPage = 10;
+  const [perPage, setPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
@@ -30,16 +30,27 @@ export default function ManageCoupons() {
 
   const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
-    setCurrentPage(0); // Reset the current page when changing perPage
+    setCurrentPage(0);
   };
 
-  const paginatedCoupons = coupons?.coupons?.slice(
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredCoupons = coupons?.coupons?.filter((coupon) =>
+    coupon.code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const paginatedCoupons = filteredCoupons?.slice(
     currentPage * perPage,
     currentPage * perPage + perPage
   );
 
   const startIndex = currentPage * perPage + 1;
-  const endIndex = Math.min(startIndex + perPage - 1, coupons?.coupons?.length);
+  const endIndex = Math.min(
+    startIndex + perPage - 1,
+    filteredCoupons?.length
+  );
 
   const deleteCouponHandler = (id) => {
     Swal.fire({
@@ -60,6 +71,7 @@ export default function ManageCoupons() {
       }
     });
   };
+
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -89,11 +101,24 @@ export default function ManageCoupons() {
           </ButtonShort>
         </div>
       </div>
+
+      <div className="flex items-center mb-4">
+        <label htmlFor="search" className="mr-2 text-gray-600">
+          Search by code:
+        </label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search coupon code ..."
+          className="text-base text-gray-700 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
       {loading ? (
         <LoadingComponent />
       ) : error ? (
         <ErrorMsg message={error?.message || 'Something went wrong, please try again'} />
-      ) : coupons?.coupons?.length <= 0 ? (
+      ) : filteredCoupons?.length <= 0 ? (
         <NoDataFound />
       ) : (
         <>

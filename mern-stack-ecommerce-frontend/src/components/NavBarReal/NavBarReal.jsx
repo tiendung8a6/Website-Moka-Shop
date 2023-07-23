@@ -39,6 +39,7 @@ import { getCartItemsFromLocalStorageAction } from "../../redux/slices/cart/cart
 import { logoutAction } from "../../redux/slices/users/usersSlice";
 import { fetchCouponsAction } from "../../redux/slices/coupons/couponsSlice";
 import './NavbarReal.css'
+import MokaLogo from './ImgLogo/MokaLogo.svg'
 const colors = {
   blue: "bg-blue-50 text-blue-500",
   orange: "bg-orange-50 text-orange-500",
@@ -185,7 +186,7 @@ function NavListMenu() {
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
               <Square3Stack3DIcon className="h-[18px] w-[18px]" />
-              Resources
+              Categories
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""
@@ -199,8 +200,8 @@ function NavListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
-          <ul className="grid grid-cols-4 gap-y-2">{renderItems}</ul>
+        <MenuList className="hidden max-w-screen-xl mx-auto rounded-xl lg:block hover:outline-none">
+          <ul className="grid grid-cols-4 gap-y-2  hover:outline-none">{renderItems}</ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
@@ -375,15 +376,10 @@ export default function NavbarReal() {
       <Navbar className="w-full max-w-screen-3xl  px-[100px] py-2">
 
         <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            variant="h6"
-            className="mr-4 cursor-pointer py-1.5 lg:ml-2"
-          >
-            Material Tailwind
-          </Typography>
-          <div className="hidden lg:block">
+          
+           <img src={MokaLogo} className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2" alt="" srcset="" />
+          
+          <div className="hidden lg:block lg:ml-[170px]">
             <NavList />
           </div>
           <div className="hidden gap-2 lg:flex">
