@@ -15,6 +15,10 @@ const UserShema = new Schema(
       type: String,
       required: true,
     },
+    lock: {
+      type: Boolean,
+      default: false,
+    },
     image: {
       type: String,
       required: false,

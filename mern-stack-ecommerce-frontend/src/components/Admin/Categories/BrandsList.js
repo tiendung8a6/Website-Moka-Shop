@@ -245,13 +245,6 @@ export default function BrandsList() {
               </button>
             </div>
           </div>
-
-
-
-
-
-
-
         </div>
       )}
     </div>

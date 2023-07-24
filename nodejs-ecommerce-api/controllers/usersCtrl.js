@@ -32,22 +32,30 @@ export const registerUserCtrl = asyncHandler(async (req, res) => {
     data: user,
   });
 });
+
 // @desc    Login user
 // @route   POST /api/v1/users/login
 // @access  Public
 
 export const loginUserCtrl = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  //Find the user in db by email only
-  const userFound = await User.findOne({
-    email,
-  });
-  if (userFound && (await bcrypt.compare(password, userFound?.password))) {
+  // Find the user in the database by email
+  const userFound = await User.findOne({ email });
+  if (!userFound) {
+    throw new Error("User not found");
+  }
+  // Check if the user account is locked
+  if (userFound.lock) {
+    throw new Error("User account has been locked");
+  }
+  // Check if the provided password matches the user's password in the database
+  const passwordMatch = await bcrypt.compare(password, userFound.password);
+  if (passwordMatch) {
     res.json({
       status: "success",
       message: "User logged in successfully",
       userFound,
-      token: generateToken(userFound?._id),
+      token: generateToken(userFound._id),
     });
   } else {
     throw new Error("Invalid login credentials");
@@ -108,8 +116,6 @@ export const updateShippingAddresctrl = asyncHandler(async (req, res) => {
     user,
   });
 });
-
-
 
 //Forgot password=============================================================================
 // @desc    Forgot password
@@ -277,8 +283,6 @@ export const updateUserCtrl = asyncHandler(async (req, res) => {
   });
 });
 
-
-
 // @desc    Upload image
 // @route   POST /api/v1/image
 // @access  Private
@@ -297,3 +301,29 @@ export const uploadImageCtrl = async (req, res) => {
     imageUrl: image,
   });
 };
+
+// @desc    Toggle user account lock
+// @route   PUT /api/v1/users/:id/togglelock
+// @access  Private/Admin
+export const toggleLockCtrl = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+
+  // Find the user in the database
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Toggle the "lock" field
+  user.lock = !user.lock;
+
+  // Save the updated user information
+  await user.save();
+
+  res.json({
+    status: "success",
+    message: "User account lock status updated successfully",
+    locked: user.lock,
+  });
+});

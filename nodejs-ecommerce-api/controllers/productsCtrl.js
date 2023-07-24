@@ -68,7 +68,6 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
 // @access  Public
 
 export const getProductsCtrl = asyncHandler(async (req, res) => {
-  console.log(req.query);
   //query
   let productQuery = Product.find();
 

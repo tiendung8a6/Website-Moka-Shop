@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import baseURL from "../../../utils/baseURL";
 import { Input } from "@material-tailwind/react";
 function ProductSearch() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ function ProductSearch() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://ecommerce-api-7zpw.onrender.com/api/v1/products');
+        const response = await axios.get(`${baseURL}/products`);
         const fetchedProducts = response.data.products;
         setProducts(fetchedProducts);
       } catch (error) {

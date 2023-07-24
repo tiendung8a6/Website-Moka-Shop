@@ -9,6 +9,7 @@ import {
   getAllUsersCtrl,
   updateUserCtrl,
   uploadImageCtrl,
+  toggleLockCtrl,
 
 } from "../controllers/usersCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
@@ -25,6 +26,7 @@ userRoutes.post("/changepassword", isLoggedIn, changePasswordCtrl);
 userRoutes.get("/", getAllUsersCtrl);
 userRoutes.put("/update", isLoggedIn, upload.single("image"), updateUserCtrl);
 userRoutes.post("/image", isLoggedIn, upload.single("image"), uploadImageCtrl);
+userRoutes.put("/togglelock/:id", toggleLockCtrl);
 
 
 export default userRoutes;
