@@ -125,7 +125,7 @@ export default function Customers() {
         ) : (
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-50">
-              <tr>
+              <tr >
                 <th
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
@@ -208,7 +208,7 @@ export default function Customers() {
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
               {currentItems?.map((customer, index) => (
-                <tr key={customer?._id}>
+                <tr key={customer?._id} className="hover:bg-gray-400">
                   <td className="px-3 py-4 text-sm text-gray-500">
                     {startIndex + index + 1}
                   </td>

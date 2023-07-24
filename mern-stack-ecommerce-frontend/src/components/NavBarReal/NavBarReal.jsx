@@ -285,7 +285,7 @@ export default function NavbarReal() {
 
         <div className="flex items-center justify-between text-blue-gray-900 relative">
           
-           <img src={MokaLogo} className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2" alt="" srcset="" /> <span className="absolute left-[65px] text-yellow-900 font-serif text-xl font-black ">Moka Shop</span>
+           <img src={MokaLogo} className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2" alt="" srcset="" /> <span className="absolute left-[65px] text-yellow-900 font-serif text-lg font-black ">Moka Shop</span>
           
           <div className="hidden lg:block lg:ml-[170px]">
             <NavList />

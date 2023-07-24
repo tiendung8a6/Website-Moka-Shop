@@ -32,6 +32,7 @@ import BrandsList from "./components/Admin/Categories/BrandsList";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
 import AdminRoutes from "./components/AuthRoute/AdminRoutes";
 import ThanksForOrdering from "./components/Users/Products/ThanksForOrdering";
+import CancelOrder from "./components/Users/Products/CancelOrder";
 import ProductUpdate from "./components/Admin/Products/ProuductUpdate";
 import UpdateOrders from "./components/Admin/Orders/UpdateOrders";
 import ColorsList from "./components/Admin/Categories/ColorsList";
@@ -183,6 +184,9 @@ const App = () => {
         <Route path="/products/:id" element={<Product />} />
         <Route path="/all-categories" element={<AllCategories />} />
         <Route path="/success" element={<ThanksForOrdering />} />
+        <Route path="/cancel" element={<CancelOrder />} />
+
+
         {/* review */}
         <Route
           path="/add-review/:id"
