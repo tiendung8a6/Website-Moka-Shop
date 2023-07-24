@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 // import { fetchOrdersAction } from "../../../redux/slices/orders/ordersSlices";
-import { fetchUsersAction } from "../../../redux/slices/users/usersSlice";
+import { fetchUsersAction, toggleLockCustomersAction } from "../../../redux/slices/users/usersSlice";
 
 
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import NoDataFound from "../../NoDataFound/NoDataFound";
+import Swal from 'sweetalert2';
+
+
 
 export default function Customers() {
   // dispatch
@@ -44,7 +47,30 @@ export default function Customers() {
   };
 
 
-
+  //---delete handler---
+  const toggleLockCustomersHandler = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to restore this color!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(toggleLockCustomersAction(id)).then(() => {
+          Swal.fire(
+            'Deleted!',
+            'Your color has been deleted.',
+            'success'
+          ).then(() => {
+            window.location.reload();
+          });
+        });
+      }
+    });
+  };
 
 
   return (
@@ -166,6 +192,18 @@ export default function Customers() {
                 >
                   Postal Code
                 </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Toggle Lock
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
@@ -208,15 +246,39 @@ export default function Customers() {
                   <td className="px-3 py-4 text-sm text-gray-500">
                     {customer?.shippingAddress?.postalCode ?? "N/A"}
                   </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer.lock ?
+                      (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                          Locked
+                        </span>
+                      ) : (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                          Normal
+                        </span>
+                      )}
+                  </td>
+                  <td className="px-3 py-4 text-sm text-gray-500">
+                    {customer.lock ? (
+                      <button onClick={() => toggleLockCustomersHandler(customer?._id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" className="w-6 h-6 cursor-pointer text-indigo-600">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                      </button>
+                    ) : (
+                      <button onClick={() => toggleLockCustomersHandler(customer?._id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" className="w-6 h-6 cursor-pointer text-indigo-600">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
-
-
-
 
       <div className="mt-4 flex items-center justify-between">
         <div className="text-gray-600 font-medium text-[16px]">
@@ -265,12 +327,6 @@ export default function Customers() {
           </button>
         </div>
       </div>
-
-
-
-
-
-
     </div>
   );
 }

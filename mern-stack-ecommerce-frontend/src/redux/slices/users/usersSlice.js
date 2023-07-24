@@ -264,13 +264,37 @@ export const fetchUsersAction = createAsyncThunk(
 );
 
 
-//users slice
+// toggle lock customers action
+export const toggleLockCustomersAction = createAsyncThunk(
+  "users/toggleLock",
+  async (customerId, { rejectWithValue, getState, dispatch }) => {
+    try {
+      // Token - Authenticated
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      // Make the API call to toggle the lock status of the customer with the given ID
+      const { data } = await axios.put(
+        `${baseURL}/users/togglelock/${customerId}`,
+        {},
+        config
+      );
+      // Return the data from the API response if needed
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
 
+//users slice
 const usersSlice = createSlice({
   name: "users",
   initialState,
   extraReducers: (builder) => {
-    //handle actions
     //login
     builder.addCase(loginUserAction.pending, (state, action) => {
       state.userAuth.loading = true;
@@ -298,6 +322,17 @@ const usersSlice = createSlice({
     //logout
     builder.addCase(logoutAction.fulfilled, (state, action) => {
       state.userAuth.userInfo = null;
+    });
+    //handle actions
+    builder.addCase(toggleLockCustomersAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(toggleLockCustomersAction.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(toggleLockCustomersAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     });
     //profile
     builder.addCase(getUserProfileAction.pending, (state, action) => {
