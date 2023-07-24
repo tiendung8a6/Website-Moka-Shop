@@ -194,7 +194,7 @@ export default function Product() {
     }
   };
 
-  
+
 
 
   return (
@@ -387,7 +387,7 @@ export default function Product() {
                   <BtnAddCart>
                     Add to cart
                   </BtnAddCart>
-                  
+
                 ) : (
                   <button
                     onClick={() => addToCartHandler()}
@@ -454,14 +454,19 @@ export default function Product() {
         </div>
 
         {/* Reviews */}
-        
+
         <section aria-labelledby="reviews-heading" className="mt-16 sm:mt-24">
           <h2
             id="reviews-heading"
             className="text-xl uppercase font-medium text-gray-900  ">
             product reviews
           </h2>
-          <div>
+
+          <div className="flex mt-2">
+            <p className="text-sm text-gray-700">
+              {product?.reviews?.length > 0 ? product?.averageRating : 0}
+              {/* <span className="sr-only"> out of 5 stars</span> */}
+            </p>
             <div className="ml-1 flex items-center">
               {[0, 1, 2, 3, 4].map((rating) => (
                 <StarIcon
@@ -476,6 +481,7 @@ export default function Product() {
                 />
               ))}
             </div>
+
           </div>
 
 

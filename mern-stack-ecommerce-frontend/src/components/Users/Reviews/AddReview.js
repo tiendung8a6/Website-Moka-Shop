@@ -5,7 +5,7 @@ import { createReviewAction } from "../../../redux/slices/reviews/reviewsSlice";
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import SuccessMsg from "../../SuccessMsg/SuccessMsg";
-
+import './ratting.css'
 export default function AddReview() {
   //Dispatch
   const dispatch = useDispatch();
@@ -63,24 +63,37 @@ export default function AddReview() {
                   className="block text-sm font-medium text-gray-700">
                   Rating
                 </label>
-                <select
+                <div
                   value={formData.rating}
                   onChange={handleOnChange}
                   name="rating"
                   className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 border-2 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   defaultValue="Canada">
                   {/* review rating */}
+                  <div class="rating">
+                    <input value="1" name="star-radio" id="star-1" type="radio" />
+                    <label for="star-1">
+                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+                    </label>
+                    <input value="2" name="star-radio" id="star-2" type="radio" />
+                    <label for="star-2">
+                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+                    </label>
+                    <input value="3" name="star-radio" id="star-3" type="radio" />
+                    <label for="star-3">
+                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+                    </label>
+                    <input value="4" name="star-radio" id="star-4" type="radio" />
+                    <label for="star-4">
+                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+                    </label>
+                    <input value="5" name="star-radio" id="star-5" type="radio" />
+                    <label for="star-5">
+                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+                    </label>
+                  </div>
 
-                  <option value="1">1</option>
-
-                  <option value="2">2</option>
-
-                  <option value="3">3</option>
-
-                  <option value="4">4</option>
-
-                  <option value="5">5 </option>
-                </select>
+                </div>
               </div>
 
               {/* description */}
@@ -112,7 +125,7 @@ export default function AddReview() {
                 )}
               </div>
 
-              
+
             </form>
           </div>
         </div>

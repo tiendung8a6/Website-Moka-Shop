@@ -94,7 +94,7 @@ function NavListMenu() {
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
-              <Square3Stack3DIcon className="h-[18px] w-[18px]" />
+              <Square3Stack3DIcon className="h-[18px] w-[18px] " />
               Categories
               <ChevronDownIcon
                 strokeWidth={2.5}
@@ -159,18 +159,7 @@ function NavList() {
         </ListItem>
       </Typography>
 
-      {/* <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-normal"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          <UserCircleIcon className="h-[18px] w-[18px]" />
-          Account
-        </ListItem>
-      </Typography> */}
+      
     </List>
   );
 }
@@ -250,6 +239,7 @@ export default function NavbarReal() {
     navigator.clipboard.writeText(text)
       .then(() => {
         // Successfully copied
+        window.alert('Copy success')
         console.log('Copied to clipboard:', text);
       })
       .catch((error) => {
@@ -284,7 +274,7 @@ export default function NavbarReal() {
                     className="material-symbols-outlined ml-3 cursor-pointer"
                     onClick={() => handleCopyToClipboard(coupon.code)}
                   >
-                   content_copy
+                   content_copy 
                   </span>
                 </div>
               ))}
@@ -293,9 +283,9 @@ export default function NavbarReal() {
       )}
       <Navbar className="w-full max-w-screen-3xl  px-[100px] py-2">
 
-        <div className="flex items-center justify-between text-blue-gray-900">
+        <div className="flex items-center justify-between text-blue-gray-900 relative">
           
-           <img src={MokaLogo} className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2" alt="" srcset="" />
+           <img src={MokaLogo} className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2" alt="" srcset="" /> <span className="absolute left-[65px] text-yellow-900 font-serif text-xl font-black ">Moka Shop</span>
           
           <div className="hidden lg:block lg:ml-[170px]">
             <NavList />
