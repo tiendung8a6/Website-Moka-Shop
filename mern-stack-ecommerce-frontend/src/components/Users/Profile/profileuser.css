@@ -1,0 +1,9 @@
+.bg-profileuser{
+    background-image: url(./Img-profile/bg-fashion-profile.jpg);
+    background-size: cover;
+}
+
+.bg-profileuser-Cp{
+    background-image: url('./Img-profile/Bg-profileuserCP.png');
+    background-size: cover;
+}

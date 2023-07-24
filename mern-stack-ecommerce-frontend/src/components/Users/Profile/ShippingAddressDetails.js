@@ -1,38 +1,30 @@
 export default function ShippingAddressDetails({ shippingAddress }) {
   return (
-    <div className="relative">
-      <div className="h-56 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
-        <img
-          className="h-full w-full object-cover"
-          src="https://images.pexels.com/photos/6348105/pexels-photo-6348105.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          alt=""
-        />
-      </div>
-      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="md:ml-auto md:w-1/2 md:pl-10">
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
+    <div className="relative mx-auto my-auto">
+        <div className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 p-10">
+          <p className="mt-2 text-3xl font-bold tracking-tight text-black sm:text-4xl">
             Shipping Address Details
           </p>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-md text-black">
             Full Name: {shippingAddress?.firstName} {shippingAddress?.lastName},
           </p>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-md text-black">
             Address: {shippingAddress?.address}
           </p>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-md text-black">
             City: {shippingAddress?.city},
           </p>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-md text-black">
             Country: {shippingAddress?.country},
           </p>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-md text-black">
             Phone: {shippingAddress?.phone},
           </p>
-          <p className="mt-3 text-lg text-gray-600">
+          <p className="mt-2 text-md text-black">
             Postal code: {shippingAddress?.postalCode},
           </p>
         </div>
       </div>
-    </div>
+    
   );
 }

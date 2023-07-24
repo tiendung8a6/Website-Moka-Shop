@@ -20,7 +20,7 @@ const IntroductionService = () => {
       duration: '1',
     },
     {
-      label: 'Khách Hàng thân thiết',
+      label: 'Dear Customers',
       number: '9999',
 
       duration: '2',

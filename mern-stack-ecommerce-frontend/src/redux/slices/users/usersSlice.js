@@ -197,6 +197,51 @@ export const changePasswordAction = createAsyncThunk(
   }
 );
 
+// update user profile action 
+export const updateUserAction = createAsyncThunk(
+  "users/update",
+  async ({ fullname, email, image }, { rejectWithValue, getState }) => {
+    try {
+      // Lấy token từ state để gửi trong header của request
+      const token = getState()?.users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      // Gửi yêu cầu HTTP đến endpoint "/api/v1/users/updateuser"
+      const response = await axios.put(
+        `${baseURL}/users/update`,
+        { fullname, email, image },
+        config
+      );
+
+      // Return the updated user object as part of the action payload
+      return response.data.user;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+// upload img action 
+export const uploadImageAction = createAsyncThunk(
+  "users/uploadImage",
+  async (formData, { rejectWithValue }) => {
+    try {
+      // Make the HTTP request to the "upload image" endpoint
+      const response = await axios.post(`${baseURL}/image`, formData);
+      return response.data.imageUrl; // Return the uploaded image URL from the API response
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 
 //fetch users action
 export const fetchUsersAction = createAsyncThunk(
@@ -370,6 +415,41 @@ const usersSlice = createSlice({
       // Optionally, you can display an error message to the user in your UI
       console.error("Failed to change password", state.error);
     });
+    
+     // Update User
+     builder.addCase(updateUserAction.pending, (state, action) => {
+      state.loading = true; // Indicate that the user update process is ongoing
+    });
+    builder.addCase(updateUserAction.fulfilled, (state, action) => {
+      state.loading = false; // Reset loading state
+      // Update the user info in the state with the data from the API response
+      state.userAuth.userInfo = action.payload;
+      // Optionally, you can display a success message to the user in your UI
+      console.log("User has been updated successfully");
+    });
+    builder.addCase(updateUserAction.rejected, (state, action) => {
+      state.loading = false; // Reset loading state
+      state.error = action.payload; // Store the error message returned from the API
+      // Optionally, you can display an error message to the user in your UI
+      console.error("Failed to update user", state.error);
+    });
+
+    // Upload Image
+    builder.addCase(uploadImageAction.pending, (state, action) => {
+      state.loading = true; // Indicate that the image upload process is ongoing
+    });
+    builder.addCase(uploadImageAction.fulfilled, (state, action) => {
+      state.loading = false; // Reset loading state
+      // Optionally, you can display a success message to the user in your UI
+      console.log("Image has been uploaded successfully");
+    });
+    builder.addCase(uploadImageAction.rejected, (state, action) => {
+      state.loading = false; // Reset loading state
+      state.error = action.payload; // Store the error message returned from the API
+      // Optionally, you can display an error message to the user in your UI
+      console.error("Failed to upload image", state.error);
+    });
+
   },
 });
 
