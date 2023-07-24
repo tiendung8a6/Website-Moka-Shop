@@ -387,10 +387,11 @@ export default function Product() {
                   <BtnAddCart>
                     Add to cart
                   </BtnAddCart>
+                  
                 ) : (
                   <button
                     onClick={() => addToCartHandler()}
-                    className="mt-8 flex w-full items-center justify-center ">
+                    className="">
                     <BtnAddCart>
                       Add to cart
                     </BtnAddCart>

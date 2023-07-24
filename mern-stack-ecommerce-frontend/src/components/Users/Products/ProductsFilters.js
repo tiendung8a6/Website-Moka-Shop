@@ -34,7 +34,7 @@ const sortOptions = [
 
 const allPrice = [
   {
-    amount:  50,
+    amount: 50,
   },
   {
     amount: 100,
@@ -638,10 +638,10 @@ export default function ProductsFilters() {
                                 className="h-4 w-4 rounded border-gray-300 cursor-pointer text-indigo-600 focus:ring-indigo-500"
                               />
                               <label className="ml-3 min-w-0 flex-1 text-gray-500">
-                                
-                              
-                                {'<'}{ new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price?.amount)}
-                                
+
+
+                                {'<'}{new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price?.amount)}
+
                               </label>
                             </div>
                           ))}
@@ -752,15 +752,19 @@ export default function ProductsFilters() {
               </form>
 
               {/* Product grid */}
-              {loading ? (
-                <LoadingComponent />
-              ) : error ? (
-                <ErrorMsg message={error?.message} />
-              ) : products?.length <= 0 ? (
-                <NoDataFound />
-              ) : (
-                <Products products={products} />
-              )}
+
+              <div className="aaaaaaaaaa  lg:w-[900px] flex justify-center">
+                {loading ? (
+                  <LoadingComponent />
+                ) : error ? (
+                  <ErrorMsg message={error?.message} />
+                ) : products?.length <= 0 ? (
+                  <NoDataFound className='' />
+                ) : (
+                  <Products products={products} />
+                )}
+              </div>
+
             </div>
           </section>
         </main>
