@@ -80,11 +80,10 @@ export default function ProductsFilters() {
   const [size, setSize] = useState("");
   console.log(color);
   //build up url
-  let productUrl = `${baseURL}/products`;
+  let productUrl = `${baseURL}/products#`;
   if (category) {
     productUrl = `${baseURL}/products?category=${category}`;
-  }
-  if (brand) {
+  }if (brand) {
     productUrl = `${productUrl}&brand=${brand}`;
   }
   if (size) {
@@ -96,6 +95,7 @@ export default function ProductsFilters() {
   if (color) {
     productUrl = `${productUrl}&color=${color?.name}`;
   }
+  
   //fetch all products
   useEffect(() => {
     dispatch(
@@ -303,7 +303,7 @@ export default function ProductsFilters() {
                     </Disclosure>
 
                     {/* price categories section */}
-                    <Disclosure
+                    {/* <Disclosure
                       as="div"
                       key="disclosure"
                       className="border-t border-gray-200 px-4 py-6">
@@ -351,7 +351,7 @@ export default function ProductsFilters() {
                           </Disclosure.Panel>
                         </>
                       )}
-                    </Disclosure>
+                    </Disclosure> */}
                     {/*  end price categories section  */}
 
                     {/* product brand categories section categories section */}
@@ -601,7 +601,7 @@ export default function ProductsFilters() {
                 {/* colors end categories section */}
 
                 {/* price categories section Desktop*/}
-                <Disclosure
+                {/* <Disclosure
                   as="div"
                   key="disclosure"
                   className="border-t border-gray-200 px-4 py-6">
@@ -649,7 +649,7 @@ export default function ProductsFilters() {
                       </Disclosure.Panel>
                     </>
                   )}
-                </Disclosure>
+                </Disclosure> */}
                 {/*  end price categories section  Desktop*/}
 
                 {/* product brand categories section categories section */}

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 const ProductListPopup = () => {
   const productList = [
-    { name: "Dior Klein Jeans", price: "100.000 Đ", img: "https://cdn.shopify.com/s/files/1/0155/2957/4454/products/09_0d699675-44e1-439a-a05e-dda7f34c8cf8.jpg?v=1651237631" },
-    { name: "Cavin Klein Jeans", price: "300.000 Đ", img: "https://cdn.shopify.com/s/files/1/0155/2957/4454/products/09_0d699675-44e1-439a-a05e-dda7f34c8cf8.jpg?v=1651237631" },
-    { name: "Adidas Tracksuit", price: "800.000 Đ ", img: "https://cdn.shopify.com/s/files/1/0155/2957/4454/products/09_0d699675-44e1-439a-a05e-dda7f34c8cf8.jpg?v=1651237631" },
+    {href:'/form', name: "Dior Klein Jeans", price: "100.000 Đ", img: "https://cdn.shopify.com/s/files/1/0155/2957/4454/products/09_0d699675-44e1-439a-a05e-dda7f34c8cf8.jpg?v=1651237631" },
+    {href:'/form', name: "Cavin Klein Jeans", price: "300.000 Đ", img: "https://cdn.shopify.com/s/files/1/0155/2957/4454/products/09_0d699675-44e1-439a-a05e-dda7f34c8cf8.jpg?v=1651237631" },
+    {href:'/form', name: "Adidas Tracksuit", price: "800.000 Đ ", img: "https://cdn.shopify.com/s/files/1/0155/2957/4454/products/09_0d699675-44e1-439a-a05e-dda7f34c8cf8.jpg?v=1651237631" },
   ];
 
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-
+  const handdleReload =()=>{
+    
+  }
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProductIndex((prevIndex) => {
@@ -43,6 +45,7 @@ const ProductListPopup = () => {
             <button className="close-button absolute -right-2 -top-2 rounded-full bg-red-500 w-[30px] h-[30px]  " onClick={closePopup}>
               X
             </button>
+            <Link to={currentProduct.href} onClick={handdleReload}>
             <div className="flex justify-between px-3 pb-3 pt-3"> 
               <img className="h-[90px] w-[70px] border" src={currentProduct.img} alt={currentProduct.name} />
               <div className="mt-5">
@@ -50,6 +53,7 @@ const ProductListPopup = () => {
                 <p>{currentProduct.price}</p>
               </div>
             </div>
+            </Link>
           </div>
         </div>
       )}
