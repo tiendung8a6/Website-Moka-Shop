@@ -90,7 +90,7 @@ const ProductFuture = () => {
                                 {/* <span className=""> {product.header}</span> */}
 
                             </div>
-                            <div className="z-10 absolute top-0 right-[-50px] bg-[#e35353] w-[280px] rotate-[45deg] text-[#fff] font-thin font-serif group-hover:text-[#000]">
+                            <div className="z-10 h-[25px] absolute top-0 right-[-50px] bg-[#e35353] w-[280px] rotate-[45deg] text-[#fff] font-thin font-serif group-hover:text-[#000]">
                                 <span className="mx-[150px]">{product.tag}</span>
                             </div>
                             <img

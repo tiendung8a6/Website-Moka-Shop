@@ -114,6 +114,13 @@ export default function OrdersList() {
           />
         </div>
         <div className="-mx-4 mt-3  overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
+        {loading ? (
+              <LoadingComponent />
+            ) : error ? (
+              <ErrorMsg message={error?.message} />
+            ) : filteredOrders?.length <= 0 ? (
+              <NoDataFound />
+            ) : (
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-50">
               <tr>
@@ -174,13 +181,7 @@ export default function OrdersList() {
                 </th>
               </tr>
             </thead>
-            {loading ? (
-              <LoadingComponent />
-            ) : error ? (
-              <ErrorMsg message={error?.message} />
-            ) : filteredOrders?.length <= 0 ? (
-              <NoDataFound />
-            ) : (
+            
               <tbody className="divide-y divide-gray-200 bg-white ">
                 {currentItems?.map((order, index) => (
                   <tr key={order._id} className="hover:bg-gray-200">
@@ -299,8 +300,9 @@ export default function OrdersList() {
                   </tr>
                 ))}
               </tbody>
-            )}
+            
           </table>
+          )}
         </div>
         <div className="mt-4 flex items-center justify-between">
           <div className="text-gray-600 font-medium text-[16px]">
