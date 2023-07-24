@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createReviewAction } from "../../../redux/slices/reviews/reviewsSlice";
@@ -16,7 +16,9 @@ export default function AddReview() {
     rating: "",
     message: "",
   });
-
+  const handleStarClick = (ratingValue) => {
+    setFormData({ ...formData, rating: ratingValue });
+  };
   //onChange
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,34 +67,32 @@ export default function AddReview() {
                 </label>
                 <div
                   value={formData.rating}
-                  onChange={handleOnChange}
                   name="rating"
                   className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 border-2 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  defaultValue="Canada">
+                  defaultValue="Canada"
+                >
                   {/* review rating */}
-                  <div class="rating">
-                    <input value="1" name="star-radio" id="star-1" type="radio" />
-                    <label for="star-1">
-                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-                    </label>
-                    <input value="2" name="star-radio" id="star-2" type="radio" />
-                    <label for="star-2">
-                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-                    </label>
-                    <input value="3" name="star-radio" id="star-3" type="radio" />
-                    <label for="star-3">
-                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-                    </label>
-                    <input value="4" name="star-radio" id="star-4" type="radio" />
-                    <label for="star-4">
-                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-                    </label>
-                    <input value="5" name="star-radio" id="star-5" type="radio" />
-                    <label for="star-5">
-                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-                    </label>
+                  <div className="rating">
+                    {[1, 2, 3, 4, 5].map((ratingValue) => (
+                      <React.Fragment key={ratingValue}>
+                        <input
+                          value={ratingValue}
+                          name="star-radio"
+                          id={`star-${ratingValue}`}
+                          type="radio"
+                          onClick={() => handleStarClick(ratingValue)}
+                        />
+                        <label
+                          htmlFor={`star-${ratingValue}`}
+                          className={formData.rating >= ratingValue ? "filled" : ""}
+                        >
+                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path>
+                          </svg>
+                        </label>
+                      </React.Fragment>
+                    ))}
                   </div>
-
                 </div>
               </div>
 
