@@ -211,19 +211,8 @@ const data = [
     label: "Add Product",
     href: "add-product",
     icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6 m-1"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
       </svg>
     ),
   },
@@ -232,19 +221,8 @@ const data = [
     label: "Manage Products",
     href: "manage-products",
     icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6 m-1"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
       </svg>
     ),
   },
@@ -259,7 +237,7 @@ const data = [
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-7 h-6 m-1 mr-4"
+        className="w-6 h-6 m-1"
       >
         <path
           strokeLinecap="round"
@@ -274,19 +252,8 @@ const data = [
     label: "Manage Coupons",
     href: "manage-coupon",
     icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6 m-1"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 7.5l3 4.5m0 0l3-4.5M12 12v5.25M15 12H9m6 3H9m12-3a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
       </svg>
     ),
   },
@@ -295,19 +262,8 @@ const data = [
     label: "All Categories",
     href: "manage-category",
     icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6 m-1"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 7.5l3 4.5m0 0l3-4.5M12 12v5.25M15 12H9m6 3H9m12-3a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
       </svg>
     ),
   },
@@ -316,7 +272,7 @@ const data = [
     label: "Add Option",
     href: "category-to-add",
     icon: () => (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
       </svg>
     ),
@@ -326,7 +282,7 @@ const data = [
     label: "All Colors",
     href: "all-colors",
     icon: () => (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
       </svg>
     ),
@@ -336,7 +292,7 @@ const data = [
     label: "All Brands",
     href: "all-brands",
     icon: () => (
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-1">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
       </svg>
     ),
@@ -381,7 +337,7 @@ export default function AddminDashboard() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-cyan-700 pt-5 pb-4">
+                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-gradient-to-r from-cyan-500 to-blue-500 pt-5 pb-4">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -407,122 +363,22 @@ export default function AddminDashboard() {
                   </Transition.Child>
                   <div className="flex flex-shrink-0 items-center px-4"></div>
 
-                  <nav
-                    className="mt-5 flex flex-1 flex-col divide-y divide-cyan-800 overflow-y-auto"
-                    aria-label="Sidebar"
-                  >
-                    {/* orders links mobile */}
-                    <div className="mt-1 pt-1">
-                      <div className="space-y-1 px-2">
-                        {ordersLinks.map((item) => (
-                          <Link
-                            key={item.name}
-                            to={item.href}
-                            className="group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 text-cyan-100 hover:bg-cyan-600 hover:text-white"
-                          >
-                            <item.icon
-                              className="mr-4 h-6 w-6 text-cyan-200"
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="space-y-1 px-2 mt-8">
-                      {/*Products  links mobile */}
-                      {productsLinks.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-cyan-800 text-white"
-                              : "text-cyan-100 hover:text-white hover:bg-cyan-600",
-                            "group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          <item.icon
-                            className="m-4 h-6 w-6 flex-shrink-0 text-cyan-200"
-                            aria-hidden="true"
-                          />
-                          {item.name}
+                  <Tabs value="dashboard" orientation="vertical" className='overflow-y-auto m-1 '>
+                    <TabsHeader className="w-[300px] bg-gradient-to-r from-cyan-500 to-blue-500 ">
+                      {data.map(({ label, value, icon, href }) => (
+                        <Link to={href}>
+                          <Tab key={value} value={value} className="flex justify-between my-[10px]">
+                            <div className="flex items-center gap-2">
+                              {React.createElement(icon, { className: "w-5 h-5" })}
+                              {label}
+                            </div>
+                          </Tab>
                         </Link>
+
                       ))}
-                    </div>
-                    <div className="mt-6 pt-6">
-                      <div className="space-y-1 px-2">
-                        {couponsLinks.map((item) => (
-                          <Link
-                            key={item.name}
-                            to={item.href}
-                            className="group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 text-cyan-100 hover:bg-cyan-600 hover:text-white"
-                          >
-                            <item.icon
-                              className="mr-4 h-6 w-6 text-cyan-200"
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    {/* Categories mobile */}
-                    <div className="mt-3 pt-3">
-                      <div className="space-y-1 px-2">
-                        {CategoryOption.map((item) => (
-                          <Link
-                            key={item.name}
-                            to={item.href}
-                            className="group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 text-cyan-100 hover:bg-cyan-600 hover:text-white"
-                          >
-                            <item.icon
-                              className="mr-4 h-6 w-6 text-cyan-200"
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    {/* colors links mobile */}
-                    <div className="mt-3 pt-3">
-                      <div className="space-y-1 px-2">
-                        {colorsLinks.map((item) => (
-                          <Link
-                            key={item.name}
-                            to={item.href}
-                            className="group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 text-cyan-100 hover:bg-cyan-600 hover:text-white"
-                          >
-                            <item.icon
-                              className="mr-4 h-6 w-6 text-cyan-200"
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    {/* brands links mobile */}
-                    <div className="mt-3 pt-3">
-                      <div className="space-y-1 px-2">
-                        {brandsLinks.map((item) => (
-                          <Link
-                            key={item.name}
-                            to={item.href}
-                            className="group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 text-cyan-100 hover:bg-cyan-600 hover:text-white"
-                          >
-                            <item.icon
-                              className="mr-4 h-6 w-6 text-cyan-200"
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </nav>
+                    </TabsHeader>
+
+                  </Tabs>
                   {/* end of mobile nav */}
                 </Dialog.Panel>
               </Transition.Child>
@@ -534,20 +390,20 @@ export default function AddminDashboard() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden z-50 lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
+        <div className="hidden z-50 lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col overflow-y-auto ">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex flex-grow flex-col   bg-gradient-to-r from-cyan-500 to-blue-500  pb-4">
+          <div className="flex flex-grow flex-col   bg-gradient-to-r from-cyan-500 to-blue-500  ">
             <div className="">
               <img src={MokaLogoAd} className="w-[220px] h-[200px] mx-auto" />
               <h2 className=" text-lg flex  justify-center text-cyan-100 font-semibold"> Admin <img className=" w-[26px] ml-1" src={AdminIcon}></img>
               </h2>
             </div>
 
-            <Tabs value="dashboard" orientation="vertical" className='overflow-y-auto '>
-              <TabsHeader className="w-[255px] bg-gradient-to-r from-cyan-500 to-blue-500 ">
+            <Tabs value="dashboard" orientation="vertical" className='overflow-y-auto m-1 '>
+              <TabsHeader className="w-[250px] bg-gradient-to-r from-cyan-500 to-blue-500 ">
                 {data.map(({ label, value, icon, href }) => (
                   <Link to={href}>
-                    <Tab key={value} value={value} className="flex justify-between my-[6px]  ">
+                    <Tab key={value} value={value} className="flex justify-between my-[5px]  ">
                       <div className="flex items-center gap-2">
                         {React.createElement(icon, { className: "w-5 h-5" })}
                         {label}

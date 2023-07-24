@@ -219,12 +219,13 @@ export default function CustomerProfile() {
     <>
       <div className="flex flex-wrap -mx-3 -mb-3 md:mb-0">
         <div className="w-full md:w-1/3 px-3 mb-3 md:mb-0" />
-        <div className="w-full md:w-1/2 px-3 mb-3 md:mb-0">
+        <div className="w-full md:w-1/2 px-3 mb-3 md:mb-0 mt-5">
           <CustomerDetails
             email={profile?.user?.email}
             dateJoined={new Date(profile?.user?.createdAt).toDateString()}
             fullName={profile?.user?.fullname}
             image={profile?.user?.image}
+            
           />
 
 

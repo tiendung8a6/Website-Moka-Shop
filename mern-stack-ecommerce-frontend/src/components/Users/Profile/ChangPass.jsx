@@ -25,9 +25,11 @@ export default function SettingCustomer() {
     const [newPassword, setNewPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-
-
+    const handlePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
     // Redux store
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.users);
@@ -63,10 +65,10 @@ export default function SettingCustomer() {
     };
 
     return (
-        <div className=' bg-profileuser-Cp mt-[-10px] h-[600px] ' >
+        <div className=' bg-profileuser-Cp mt-[-10px] h-[550px] ' >
             <div className="flex justify-center items-center  ">
                 <Card color="transparent" shadow={false} className="relative mt-[5%]  p-10 rounded-3xl bg-white w-[450px]">
-                    <Typography variant="h4" color="blue-gray">
+                    <Typography variant="h4" color="blue-gray" className="text-center">
                         Change Password
                     </Typography>
 
@@ -75,14 +77,14 @@ export default function SettingCustomer() {
                             <Input
                                 size="lg"
                                 label="Current Password"
-                                //   type="password"
+                                type={showPassword ?  "password":"text" }
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
                             />
                             <Input
                                 size="lg"
                                 label="New Password"
-                                //   type="password"
+                                type={showPassword ?  "password":"text" }
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                             />
@@ -93,10 +95,14 @@ export default function SettingCustomer() {
                                     variant="small"
                                     color="gray"
                                     className="flex items-center font-normal"
+
                                 >
                                     Hide Password
                                 </Typography>
+
                             }
+                            checked={showPassword}
+                            onChange={handlePasswordVisibility}
                             containerProps={{ className: "-ml-2.5" }}
                         />
                         <Button type="submit" className="mt-6" fullWidth>
