@@ -51,10 +51,10 @@ const UpdateAddressForm = () => {
     };
 
     return (
-        <div className='bg-profileuser mt-[-10px] h-[850px]'>
+        <div className='bg-profileuser mt-[-10px] h-[650px]'>
             <div className="flex justify-center items-center">
                 <Card color="transparent" shadow={false} className="relative mt-[5%] p-10 rounded-3xl bg-white w-[500px]">
-                    <Typography variant="h5" color="blue-gray" className="text">
+                    <Typography variant="h4" color="blue-gray" className="text-center">
                         Change Shipping Address
                     </Typography>
                     <form className=" mx-auto mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 background" encType="multipart/form-data">
