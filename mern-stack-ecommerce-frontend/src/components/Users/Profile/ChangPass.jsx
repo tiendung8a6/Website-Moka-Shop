@@ -80,6 +80,7 @@ export default function SettingCustomer() {
                                 type={showPassword ?  "password":"text" }
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
+                                required
                             />
                             <Input
                                 size="lg"
@@ -87,6 +88,7 @@ export default function SettingCustomer() {
                                 type={showPassword ?  "password":"text" }
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
+                                required
                             />
                         </div>
                         <Checkbox

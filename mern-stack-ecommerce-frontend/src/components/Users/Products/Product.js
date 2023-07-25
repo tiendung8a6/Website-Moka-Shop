@@ -261,7 +261,19 @@ export default function Product() {
             {/* <h2 className="sr-only">Images</h2> */}
 
             <div className="">
-              <div className="container mx-auto  h-4/5 w-4/5 shadow-md">
+              <div className="container flex  mx-auto  h-4/5 w-4/5 ">
+              <div className="list-img  justify-around h-[550px] mr-4 overflow-x-hidden">
+                  {product?.images.map((image, index) => (
+                    <div
+                      key={index}
+                      className={`  cursor-pointer p-2  flex-1  h-[270px] ${currentIndex === index ? '' : ''
+                        }`}
+                      onClick={() => setCurrent(index)}
+                    >
+                      <img src={image} alt="" className="h-[250px] mt-[7px] " />
+                    </div>
+                  ))}
+                </div>
                 <div className="main h-5/6 relative">
                   <span
                     className="control prev absolute top-1/2 transform -translate-y-1/2 text-6xl text-black cursor-pointer left-2"
@@ -290,18 +302,7 @@ export default function Product() {
                     )}
                   </div>
                 </div>
-                <div className="list-img flex h-[270px] mt-5  overflow-x-hidden">
-                  {product?.images.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`  cursor-pointer p-2 bg-gray-300 flex-1 h-[270px] ${currentIndex === index ? 'bg-red-500' : ''
-                        }`}
-                      onClick={() => setCurrent(index)}
-                    >
-                      <img src={image} alt="" className="h-[250px] " />
-                    </div>
-                  ))}
-                </div>
+                
               </div>
 
             </div>
