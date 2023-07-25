@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserAction } from "../../../redux/slices/users/usersSlice";
-import ErrorMsg from "../../ErrorMsg/ErrorMsg";
+import ErrorMsg1 from "../../ErrorMsg/ErrorMsg1";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import './FormLogio.css'
 // import ImgFomSignin from "./ImgForm/FormSignin.svg"
@@ -52,7 +52,7 @@ const RegisterForm = () => {
                 </h3>
 
                 {/* errr */}
-                {error && <ErrorMsg message={error?.message} />}
+                {error && <ErrorMsg1 message={error?.message} />}
                 {/* <p className="mb-10"></p> */}
                 <form onSubmit={onSubmitHandler}>
                   <div className="relative ml-4 lg:my-5">

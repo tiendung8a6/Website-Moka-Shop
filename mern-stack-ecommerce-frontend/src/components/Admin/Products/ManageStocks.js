@@ -7,16 +7,10 @@ import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import NoDataFound from "../../NoDataFound/NoDataFound";
 import ButtonShort from "../Categories/ButtonShort/ButtonShort";
+import Swal from 'sweetalert2';
 
 
 export default function ManageStocks() {
-  //delete product handler
-  const deleteProductHandler = (id) => {
-    // Thực hiện xóa sản phẩm với id đã truyền vào
-    dispatch(deleteProductAction(id));
-    //reload
-    window.location.reload();
-  };
   let productUrl = `${baseURL}/products`;
   //dispatch
   const dispatch = useDispatch();
@@ -34,6 +28,31 @@ export default function ManageStocks() {
     error,
   } = useSelector((state) => state?.products);
 
+  //---delete product handler---
+  const deleteProductHandler = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to restore this product!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteProductAction(id)).then(() => {
+          Swal.fire(
+            'Deleted!',
+            'Your product has been deleted.',
+            'success'
+          ).then(() => {
+            window.location.reload();
+          });
+        });
+      }
+    });
+  };
+
   // Pagination states
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +64,6 @@ export default function ManageStocks() {
   const startIndex = (currentPage - 1) * selectedItemsPerPage;
   const endIndex = Math.min(startIndex + selectedItemsPerPage, filteredProducts?.length);
   const currentItems = filteredProducts?.slice(startIndex, endIndex);
-
 
 
   const handleSearch = (event) => {

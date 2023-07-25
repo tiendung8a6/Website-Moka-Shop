@@ -4,8 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { fetchOrdersAction } from "../../../redux/slices/orders/ordersSlices";
 import { fetchUsersAction, toggleLockCustomersAction } from "../../../redux/slices/users/usersSlice";
-
-
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import NoDataFound from "../../NoDataFound/NoDataFound";
@@ -47,22 +45,26 @@ export default function Customers() {
   };
 
 
-  //---delete handler---
-  const toggleLockCustomersHandler = (id) => {
+  //---handler---
+  const toggleLockCustomersHandler = (id, isLocked) => {
+    const title = isLocked ? 'Are you sure to unlock this customer?' : 'Are you sure to lock this customer?';
+    const text = isLocked ? 'This customer will be unlocked!' : 'This customer will be locked!';
+    const successMessage = isLocked ? 'Customer unlocked successfully!' : 'Customer locked successfully!';
+
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to restore this color!",
+      title: title,
+      text: text,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, proceed!'
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(toggleLockCustomersAction(id)).then(() => {
           Swal.fire(
-            'Deleted!',
-            'Your color has been deleted.',
+            'Success!',
+            successMessage,
             'success'
           ).then(() => {
             window.location.reload();
@@ -260,15 +262,15 @@ export default function Customers() {
                   </td>
                   <td className="px-3 py-4 text-sm text-gray-500">
                     {customer.lock ? (
-                      <button onClick={() => toggleLockCustomersHandler(customer?._id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" className="w-6 h-6 cursor-pointer text-indigo-600">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      <button onClick={() => toggleLockCustomersHandler(customer?._id, true)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 cursor-pointer text-indigo-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                         </svg>
                       </button>
                     ) : (
-                      <button onClick={() => toggleLockCustomersHandler(customer?._id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" className="w-6 h-6 cursor-pointer text-indigo-600">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      <button onClick={() => toggleLockCustomersHandler(customer?._id, false)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 cursor-pointer text-indigo-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                         </svg>
                       </button>
                     )}

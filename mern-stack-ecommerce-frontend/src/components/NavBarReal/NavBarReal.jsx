@@ -38,14 +38,10 @@ import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesS
 import { getCartItemsFromLocalStorageAction } from "../../redux/slices/cart/cartSlices";
 import { logoutAction } from "../../redux/slices/users/usersSlice";
 import { fetchCouponsAction } from "../../redux/slices/coupons/couponsSlice";
-import './NavbarReal.css'
-import MokaLogo from './ImgLogo/MokaLogo.svg'
-
-
-
+import "./NavbarReal.css";
+import MokaLogo from "./ImgLogo/MokaLogo.svg";
+import Swal from "sweetalert2";
 import { getUserProfileAction } from "../../redux/slices/users/usersSlice";
-
-
 
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -59,24 +55,21 @@ function NavListMenu() {
   const { categories } = useSelector((state) => state?.categories);
   const categoriesToDisplay = categories?.categories?.slice(0, 12);
 
-  const renderItems = categoriesToDisplay?.map(
-    (category) => {
-      return (
-        <Link
-          key={category?._id}
-          to={`/products-filters?category=${category?.name}`}
-          className="text-base font-medium text-gray-900 hover:text-gray-700 dd-item-navbar"
-          onClick={() => {
-            window.location.href = `/products-filters?category=${category?.name}`;
-          }}
-        >
-          <img src={category.image} alt={category.name} className="w-6 h-6" />
-          <p className="capitalize">{category?.name}</p>
-        </Link>
-
-      );
-    }
-  );
+  const renderItems = categoriesToDisplay?.map((category) => {
+    return (
+      <Link
+        key={category?._id}
+        to={`/products-filters?category=${category?.name}`}
+        className="text-base font-medium text-gray-900 hover:text-gray-700 dd-item-navbar"
+        onClick={() => {
+          window.location.href = `/products-filters?category=${category?.name}`;
+        }}
+      >
+        <img src={category.image} alt={category.name} className="w-6 h-6" />
+        <p className="capitalize">{category?.name}</p>
+      </Link>
+    );
+  });
 
   return (
     <React.Fragment>
@@ -98,19 +91,23 @@ function NavListMenu() {
               Categories
               <ChevronDownIcon
                 strokeWidth={2.5}
-                className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`hidden h-3 w-3 transition-transform lg:block ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
               />
               <ChevronDownIcon
                 strokeWidth={2.5}
-                className={`block h-3 w-3 transition-transform lg:hidden ${isMobileMenuOpen ? "rotate-180" : ""
-                  }`}
+                className={`block h-3 w-3 transition-transform lg:hidden ${
+                  isMobileMenuOpen ? "rotate-180" : ""
+                }`}
               />
             </ListItem>
           </Typography>
         </MenuHandler>
         <MenuList className="hidden max-w-screen-xl mx-auto rounded-xl lg:block hover:outline-none">
-          <ul className="grid grid-cols-4 gap-y-2  hover:outline-none">{renderItems}</ul>
+          <ul className="grid grid-cols-4 gap-y-2  hover:outline-none">
+            {renderItems}
+          </ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
@@ -138,9 +135,7 @@ function NavList() {
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           <CubeTransparentIcon className="h-[18px] w-[18px]" />
-          <Link to="/">
-            Home
-          </Link>
+          <Link to="/">Home</Link>
         </ListItem>
       </Typography>
       <NavListMenu />
@@ -153,13 +148,9 @@ function NavList() {
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           <UserCircleIcon className="h-[18px] w-[18px]" />
-          <Link to="/form" >
-            Contact US
-          </Link>
+          <Link to="/form">Contact US</Link>
         </ListItem>
       </Typography>
-
-      
     </List>
   );
 }
@@ -217,14 +208,12 @@ export default function NavbarReal() {
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
-
 
   const [openNav, setOpenNav] = React.useState(false);
 
@@ -236,45 +225,52 @@ export default function NavbarReal() {
   }, []);
 
   const handleCopyToClipboard = (text) => {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard
+      .writeText(text)
       .then(() => {
         // Successfully copied
-        window.alert('Copy success')
-        console.log('Copied to clipboard:', text);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Copy success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log("Copied to clipboard:", text);
       })
       .catch((error) => {
-        console.error('Failed to copy to clipboard:', error);
+        console.error("Failed to copy to clipboard:", error);
       });
-  }
+  };
 
+  // get user
 
-  // get user 
-
- useEffect(() => {
+  useEffect(() => {
     dispatch(getUserProfileAction());
   }, [dispatch]);
   const { profile } = useSelector((state) => state?.users);
-  
 
   return (
     <>
-    {coupons?.coupons && (
+      {coupons?.coupons && (
         <div className="bg-yellow-600 h-[55px] flex items-center">
           <div className="flex coupon-row">
             {coupons.coupons
-              .filter(coupon => !coupon.isExpired)
+              .filter((coupon) => !coupon.isExpired)
               .map((coupon) => (
                 <div
                   key={coupon.id}
                   className="flex text-center text-sm font-medium text-white lg:flex-none px-5 py-3 bg-gray-400 mx-2 my-2 rounded-lg relative"
-                  style={{ width: '' }}
+                  style={{ width: "" }}
                 >
-                  <p>{`${coupon.code} - ${coupon.discount}%  - ${coupon.daysLeft}`} </p>
+                  <p>
+                    {`${coupon.code} - ${coupon.discount}%  - ${coupon.daysLeft}`}{" "}
+                  </p>
                   <span
                     className="material-symbols-outlined ml-3 cursor-pointer"
                     onClick={() => handleCopyToClipboard(coupon.code)}
                   >
-                   content_copy 
+                    content_copy
                   </span>
                 </div>
               ))}
@@ -282,17 +278,21 @@ export default function NavbarReal() {
         </div>
       )}
       <Navbar className="w-full max-w-screen-3xl  px-[100px] py-2">
-
         <div className="flex items-center justify-between text-blue-gray-900 relative">
-          
-           <img src={MokaLogo} className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2" alt="" srcset="" /> <span className="absolute left-[65px] text-yellow-900 font-serif text-lg font-black ">Moka Shop</span>
-          
+          <img
+            src={MokaLogo}
+            className="h-[60px] mr-4 cursor-pointer py-1.5 lg:ml-2"
+            alt=""
+            srcset=""
+          />{" "}
+          <span className="absolute left-[65px] text-yellow-900 font-serif text-lg font-black ">
+            Moka Shop
+          </span>
           <div className="hidden lg:block lg:ml-[170px]">
             <NavList />
           </div>
           <div className="hidden gap-2 lg:flex">
             <div className=" w-aaa">
-
               <div className="flex items-center lg:ml-8">
                 {user?.userFound?.isAdmin && (
                   <Link
@@ -317,9 +317,10 @@ export default function NavbarReal() {
                         to="/customer-profile"
                         className="-m-2 p-2 mr-2 text-gray-400 hover:text-gray-500"
                       >
-                        
-
-                        <img src={profile?.user?.image} className="w-[30px] h-[30px] object-cover rounded-full "></img>
+                        <img
+                          src={profile?.user?.image}
+                          className="w-[30px] h-[30px] object-cover rounded-full "
+                        ></img>
                       </Link>
                       {/* logout */}
                       <button onClick={logoutHandler}>
@@ -358,40 +359,39 @@ export default function NavbarReal() {
                         </Link>
                       </div>
                     </div>
-
                   )}
                   {/* is not login */}
                   {!isLoggedIn && (
                     <div className="lg:mr-[100px]">
                       <Link
-                        to="/register" variant="text" size="sm" color="blue-gray"
+                        to="/register"
+                        variant="text"
+                        size="sm"
+                        color="blue-gray"
                         className="lg:mr-[20px]"
-
                       >
                         <Button variant="text" size="sm" color="blue-gray">
                           Sign In
                         </Button>
                       </Link>
 
-
-
                       <Link
                         to="/login"
-                      // className="text-sm font-medium text-white hover:text-gray-100"
+                        // className="text-sm font-medium text-white hover:text-gray-100"
                       >
-                        <Button variant="gradient" size="sm" className="hover:animate-pulse">
+                        <Button
+                          variant="gradient"
+                          size="sm"
+                          className="hover:animate-pulse"
+                        >
                           Sign Up
                         </Button>
                       </Link>
                     </div>
                   )}
                 </div>
-
-
               </div>
             </div>
-
-
           </div>
           <IconButton
             variant="text"
@@ -417,9 +417,7 @@ export default function NavbarReal() {
             </Button>
           </div>
         </Collapse>
-
       </Navbar>
     </>
-
   );
 }

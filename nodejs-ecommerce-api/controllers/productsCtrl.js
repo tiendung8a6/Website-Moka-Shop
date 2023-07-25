@@ -118,7 +118,7 @@ export const getProductsCtrl = asyncHandler(async (req, res) => {
   //page
   const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
   //limit
-  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
+  const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;
   //startIdx
   const startIndex = (page - 1) * limit;
   //endIdx

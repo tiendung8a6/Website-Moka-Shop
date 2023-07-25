@@ -37,7 +37,7 @@ const Form = () => {
     e.preventDefault();
     setLoading(false);
     emailjs
-      .sendForm('service_xb8el9s', 'template_wpll1wl', form.current, 'W0NGy815UrjjUenUB')
+      .sendForm('service_w457cil', 'template_jfffx74', form.current, 'zKkmU_X05RC9tgu21')
       .then((result) => {
         console.log(result.text);
         setSuccessMessage('Send Successfully');

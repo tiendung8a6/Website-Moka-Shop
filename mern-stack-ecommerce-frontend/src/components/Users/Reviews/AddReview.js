@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createReviewAction } from "../../../redux/slices/reviews/reviewsSlice";
 import ErrorMsg from "../../ErrorMsg/ErrorMsg";
 import LoadingComponent from "../../LoadingComp/LoadingComponent";
 import SuccessMsg from "../../SuccessMsg/SuccessMsg";
-import './ratting.css'
+
 export default function AddReview() {
   //Dispatch
   const dispatch = useDispatch();
@@ -16,9 +16,7 @@ export default function AddReview() {
     rating: "",
     message: "",
   });
-  const handleStarClick = (ratingValue) => {
-    setFormData({ ...formData, rating: ratingValue });
-  };
+
   //onChange
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,37 +63,28 @@ export default function AddReview() {
                   className="block text-sm font-medium text-gray-700">
                   Rating
                 </label>
-                <div
+                <select
                   value={formData.rating}
+                  onChange={handleOnChange}
                   name="rating"
-                  className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 border-2 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  defaultValue="Canada"
+                  className={`mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base border-2 focus:outline-none focus:ring-indigo-500 sm:text-sm ${!formData.rating ? "text-gray-500" : "text-black"
+                    }`}
+                  defaultValue=""
                 >
-                  {/* review rating */}
-                  <div className="rating">
-                    {[1, 2, 3, 4, 5].map((ratingValue) => (
-                      <React.Fragment key={ratingValue}>
-                        <input
-                          value={ratingValue}
-                          name="star-radio"
-                          id={`star-${ratingValue}`}
-                          type="radio"
-                          onClick={() => handleStarClick(ratingValue)}
-                        />
-                        <label
-                          htmlFor={`star-${ratingValue}`}
-                          className={formData.rating >= ratingValue ? "filled" : ""}
-                        >
-                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path>
-                          </svg>
-                        </label>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                  {/* Placeholder option */}
+                  <option value="" disabled hidden>
+                    Please select a rating
+                  </option>
 
+                  {/* Rating options */}
+                  <option value="1" style={{ color: 'black' }}>1</option>
+                  <option value="2" style={{ color: 'black' }}>2</option>
+                  <option value="3" style={{ color: 'black' }}>3</option>
+                  <option value="4" style={{ color: 'black' }}>4</option>
+                  <option value="5" style={{ color: 'black' }}>5</option>
+                </select>
+
+              </div>
               {/* description */}
               <div>
                 <label
