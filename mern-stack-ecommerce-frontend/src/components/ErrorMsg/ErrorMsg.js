@@ -12,7 +12,7 @@ const ErrorMsg = ({ message }) => {
     text: message,
   }).then(() => {
     dispatch(resetErrAction());
-    window.location.reload(); // Reload the page
+    window.location.reload(); // Reload the page 
   });
 };
 

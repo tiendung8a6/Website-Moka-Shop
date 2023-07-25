@@ -37,7 +37,7 @@ export default function MokaSpeedDial() {
                 </SpeedDialAction>
               </Link>
 
-              <Link to='http://localhost:3000/all-categories'>
+              <Link to='/all-categories'>
                 <SpeedDialAction className="bg-blue-gray-50">
                   <Square3Stack3DIcon className="h-5 w-5" />
                 </SpeedDialAction>
